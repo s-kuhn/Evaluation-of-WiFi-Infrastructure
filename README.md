@@ -22,8 +22,11 @@ https://www.raspberrypi.com/documentation/computers/configuration.html
 
 ### Command to start ssh and further commands
 parallel-ssh -h pssh-hosts -P -I < pssh-commands
+
 scp -r pi@192.168.178.22:/tmp/cpunetlog /log
+
 scp -r pi@192.168.178.23:/tmp/cpunetlog /log
+
 scp -r pi@192.168.178.25:/tmp/cpunetlog /log
 
 Content of pssh-command:
