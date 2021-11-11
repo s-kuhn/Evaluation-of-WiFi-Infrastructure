@@ -14,28 +14,55 @@ https://ieeexplore.ieee.org/document/7098698
 ## Ansatz
 Per Parallel-SSH sich auf alle Clients schalten und auf diesen ein Script starten welches den Traffic vom Webserver erzeugt/simuliert.
 Der Webserver ist aktuell ein nginx Docker Container:
-docker run -dp 8080:80 -v $PWD/out/:/usr/share/nginx/html nginx
-docker exec -it a80602fc0291 /bin/bash
 
-### Connecting to wifi
-https://www.raspberrypi.com/documentation/computers/configuration.html
+`docker run -dp 8080:80 -v $PWD/out/:/usr/share/nginx/html nginx`
+
+`docker exec -it a80602fc0291 /bin/bash`
+
+### Setting up clients:
+install Raspian and create ssh folder befor first boot.
+
+WIFI: https://www.raspberrypi.com/documentation/computers/configuration.html
+
+Change PW: `sudo passwd`
+
+current: `raspberry`
+
+new: `rAspberry!`
+
+Requirements curl:
+
+Requirements cpunetlog:
+
+`sudo apt-get install python3`
+
+`sudo apt-get install python3-psutil`
+
+`sudo apt-get install python3-netifaces`
+
+`sudo pip3 install cpunetlog`
 
 ### Command to start ssh and further commands
-parallel-ssh -h pssh-hosts -P -I < pssh-commands
 
-scp -r pi@192.168.178.22:/tmp/cpunetlog /log
+`parallel-ssh -h pssh-hosts -P -I < pssh-commands`
 
-scp -r pi@192.168.178.23:/tmp/cpunetlog /log
+`cpunetlog -l --nics eth0 -q`
 
-scp -r pi@192.168.178.25:/tmp/cpunetlog /log
+`scp -r /tmp/cpunetlog labrat@192.168.0.184:/home/labrat/Schreibtisch/log/`
+
 
 Content of pssh-command:
-curl --trace-ascii dump --trace-time -O 192.168.178.19:8080/test.mp4
 
-7 GB iso
+old: 
+`curl --trace-ascii dump --trace-time -O 192.168.178.19:8080/test.mp4` 
+
+new (with cpunetlog): 
+`cpunetlog -l --nics wlan0 -q &
+sleep 10 &&
+curl -o file 192.168.178.19:8080/test.mp4 &&
+pkill -f cpunetlog`
 
 ## TODO:
-current: raspberry
-new: rAspberry!
-- SSH Keys für einfacheren login: ssh-copy-id -i $HOME/.ssh/id_rsa.pub pi@ip
-- monitoring / ergebnisse aufzeichnen
+
+- SSH Keys für einfacheren login: `ssh-copy-id -i $HOME/.ssh/id_rsa.pub pi@ip`
+- monitoring / ergebnisse aufzeichnen -> cpunetlog
