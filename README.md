@@ -19,6 +19,15 @@ Der Webserver ist aktuell ein nginx Docker Container:
 
 `docker exec -it a80602fc0291 /bin/bash`
 
+Setup Fileserver:
+
+install go: https://golang.org/doc/install
+build go-simple-upload-server: https://github.com/mayth/go-simple-upload-server
+Move file to /usr/local/bin
+follow: https://wiki.ubuntuusers.de/Howto/systemd_Service_Unit_Beispiel/
+start server with this file with command: `go-simple-upload-server -token 123 -port 8888 -upload_limit 100000000`
+
+
 ### Setting up clients:
 install Raspian and create ssh folder befor first boot.
 
