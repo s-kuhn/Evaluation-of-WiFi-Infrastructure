@@ -1,0 +1,7 @@
+[fileserver]
+ubuntu1 ansible_host=sascha@192.168.178.52
+
+[clients]
+raspberry-B ansible_host=pi@192.168.178.22 ansible_python_interpreter=/usr/bin/python3
+raspberry-A ansible_host=pi@192.168.178.29 ansible_python_interpreter=/usr/bin/python3
+raspberry-AC ansible_host=pi@192.168.178.30 ansible_python_interpreter=/usr/bin/python3
