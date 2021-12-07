@@ -1,0 +1,81 @@
+---
+- name: "install go"
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: "Install go"
+      become: yes
+      apt:
+        name: golang-go
+
+    - name: "verify"
+      shell: 'go version'
+
+    - name: "add go path"
+      shell: "export GOPATH=$HOME/sascha/go"
+
+    - name: "Add another bin dir to system-wide $PATH."
+      become: yes
+      copy:
+        dest: /etc/profile.d/custom-path.sh
+        content: 'PATH=$PATH:/home/sascha/go/bin'
+
+    #- name: "install go-server"
+    #  shell: 'go install github.com/mayth/go-simple-upload-server'
+    #  environment:
+    #    GO111MODULE: ture
+
+    - name: Update apt-get repo and cache
+      become: yes
+      apt:
+        update_cache: yes
+        state: fixed
+        cache_valid_time: 3600
+        autoclean: yes
+        autoremove: yes
+
+    - name: "upgrade"
+      become: yes
+      shell: apt-get upgrade -y
+
+    - name: "Download go-server"
+      get_url:
+        url: https://github.com/mayth/go-simple-upload-server/archive/refs/tags/v1.2.tar.gz
+        dest: /home/sascha/
+        mode: 0755
+        owner: sascha
+
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: /home/sascha/go-simple-upload-server-1.2
+        state: directory
+        mode: '0755'
+
+    - name: Extract /home/sascha/go-simple-upload-server-1.2.tar.gz into /home/sascha
+      ansible.builtin.unarchive:
+        src: /home/sascha/go-simple-upload-server-1.2.tar.gz
+        dest: /home/sascha
+
+    - name: "build"
+      shell: go build
+      args:
+        chdir: ../go-simple-upload-server-1.2
+
+    - name: "move file"
+      become: yes
+      shell: 'mv /home/sascha/go-simple-upload-server-1.2/go-simple-upload-server /usr/local/bin'
+
+    - name: "move .service file"
+      copy:
+        src: gosimplefileserver.service
+        dest: /etc/systemd/system/
+
+    - name: "enable service file"
+      become: yes
+      shell: 'systemctl enable gosimplefileserver.service'
+
+    - name: "restart service"
+      become: yes
+      shell: 'systemctl start gosimplefileserver.service'
+...

@@ -1,0 +1,17 @@
+---
+    - name: "Install curl"
+      become: yes
+      apt:
+        name: curl
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Update apt-get repo and cache
+      become: yes
+      apt:
+        update_cache: yes
+        state: fixed
+        cache_valid_time: 3600
+        autoclean: yes
+        autoremove: yes
+...
