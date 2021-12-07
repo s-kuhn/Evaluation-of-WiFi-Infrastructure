@@ -39,27 +39,32 @@ Requirements curl: usuly included
 
 ### Setting up Server and Ansible Controller
 
-'sudo apt-get update'
+`sudo apt-get update`
 
-'sudo apt-get upgrade -y'
+`sudo apt-get upgrade -y`
 
-'ssh-keygen'
+`ssh-keygen`
 
-'ssh-copy-id username@remote_host'
+`ssh-copy-id username@remote_host`
 
-'python3 -V'
+`python3 -V`
 
-'sudo apt install ansible -y'
+`sudo apt install ansible -y`
 
-'sudo apt install git -y'
+`sudo apt install git -y`
 
-'git clone https://github.com/s-kuhn/projektarbeit.git'
+`git clone https://github.com/s-kuhn/projektarbeit.git`
+
 
 ### Command to start
 
-`command time ansible-playbook -v ../playbook1.yml -i inventory`
+`cd projektarbeit/ansible`
 
+`command time ansible-playbook -v ../install_go-server.yml -i inventory -e ansible_python_interpreter=/usr/bin/python3 --ask-become-pass`
 
-## TODO:
+`command time ansible-playbook -v ../playbook1.yml -i inventory -e ansible_python_interpreter=/usr/bin/python3`
 
-- SSH Keys für einfacheren login: `ssh-copy-id -i $HOME/.ssh/id_rsa.pub pi@ip`
+### TODO
+
+- mehr variation
+- pfade verallgemeinern
