@@ -60,7 +60,7 @@
     - name: "build"
       shell: go build
       args:
-        chdir: ../go-simple-upload-server-1.2
+        chdir: /home/sascha/go-simple-upload-server-1.2
 
     - name: "move file"
       become: yes
