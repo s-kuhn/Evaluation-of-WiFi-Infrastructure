@@ -34,11 +34,26 @@ current: `raspberry`
 
 new: `rAspberry!`
 
-Requirements curl:
+Requirements curl: usuly included
+
+
+### Setting up Server and Ansible Controller
+
+'sudo apt-get update'
+
+'sudo apt-get upgrade -y'
+
+'ssh-keygen'
+
+'ssh-copy-id username@remote_host'
+
+'python3 -V'
+
+'sudo apt install ansible -y'
 
 ### Command to start
 
-`command time ansible-playbook ../playbook1.yml -i inventory`
+`command time ansible-playbook -v ../playbook1.yml -i inventory`
 
 
 ## TODO:
