@@ -51,6 +51,10 @@ Requirements curl: usuly included
 
 'sudo apt install ansible -y'
 
+'sudo apt install git -y'
+
+'git clone https://github.com/s-kuhn/projektarbeit.git'
+
 ### Command to start
 
 `command time ansible-playbook -v ../playbook1.yml -i inventory`
