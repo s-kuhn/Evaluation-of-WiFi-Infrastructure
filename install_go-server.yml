@@ -64,7 +64,9 @@
 
     - name: "move file"
       become: yes
-      shell: 'mv /home/sascha/go-simple-upload-server-1.2/go-simple-upload-server /usr/local/bin'
+      copy:
+        src: /home/sascha/go-simple-upload-server-1.2/go-simple-upload-server
+        dest: /usr/local/bin
 
     - name: "move .service file"
       become: yes
@@ -72,11 +74,10 @@
         src: gosimplefileserver.service
         dest: /etc/systemd/system/
 
-    - name: "enable service file"
+    - name: "enable and start service file"
       become: yes
-      shell: 'systemctl enable gosimplefileserver.service'
-
-    - name: "restart service"
-      become: yes
-      shell: 'systemctl start gosimplefileserver.service'
+      systemd:
+        enabled: yes
+        state: started
+        name: gosimplefileserver.service
 ...
