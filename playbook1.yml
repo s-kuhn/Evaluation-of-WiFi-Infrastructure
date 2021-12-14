@@ -5,13 +5,12 @@
   gather_facts: false
 
   tasks:
-  - name: "check if curl is installed"
-    shell: 'curl -V'
-    register: output
-
-  - name: "Install curl if nessessery"
-    import_tasks: install_curl.yml
-    when: output is search("The program")
+  - name: "Install curl"
+    become: yes
+    apt:
+      name: curl
+      update_cache: yes
+      cache_valid_time: 3600
 
   - import_tasks: get_random.yml
 
