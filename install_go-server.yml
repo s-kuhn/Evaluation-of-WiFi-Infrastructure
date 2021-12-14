@@ -67,6 +67,7 @@
       shell: 'mv /home/sascha/go-simple-upload-server-1.2/go-simple-upload-server /usr/local/bin'
 
     - name: "move .service file"
+      become: yes
       copy:
         src: gosimplefileserver.service
         dest: /etc/systemd/system/
