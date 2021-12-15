@@ -23,11 +23,6 @@
         dest: /etc/profile.d/custom-path.sh
         content: 'PATH=$PATH:{{ home_dir }}/go/bin'
 
-    #- name: "install go-server"
-    #  shell: 'go install github.com/mayth/go-simple-upload-server'
-    #  environment:
-    #    GO111MODULE: ture
-
     - name: Update apt-get repo and cache
       become: yes
       apt:
