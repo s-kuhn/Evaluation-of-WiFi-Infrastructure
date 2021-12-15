@@ -1,6 +1,9 @@
 ---
 - name: "install go"
   hosts: localhost
+  vars:
+    home_dir: "{{ lookup('env', 'HOME') }}"
+    user_: "{{ lookup('env', 'USR') }}"
 
   tasks:
     - name: "Install go"
@@ -41,9 +44,9 @@
     - name: "Download go-server"
       get_url:
         url: https://github.com/mayth/go-simple-upload-server/archive/refs/tags/v1.2.tar.gz
-        dest: "{{ lookup('env', 'HOME') }}"
+        dest: "{{ home_dir }}"
         mode: 0755
-        owner: "{{ lookup('env', 'USR') }}"
+        owner: "{{ user_ }}"
 
     - name: Create a directory if it does not exist
       ansible.builtin.file:
