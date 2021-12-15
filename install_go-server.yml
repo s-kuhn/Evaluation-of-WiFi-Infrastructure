@@ -3,7 +3,6 @@
   hosts: localhost
   vars:
     home_dir: "{{ lookup('env', 'HOME') }}"
-    user_: "{{ lookup('env', 'USR') }}"
 
   tasks:
 
@@ -13,7 +12,7 @@
 
     - name: "debug home"
       debug:
-        msg: "{{ user_ }}"
+        msg: "{{ ansible_user_id }}"
 
     - name: "Install go"
       become: yes
