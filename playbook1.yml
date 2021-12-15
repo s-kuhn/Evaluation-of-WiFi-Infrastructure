@@ -10,7 +10,11 @@
   tasks:
   - name: "debug home"
     debug:
-      msg: "{{ home_dir }}, {{ ansible_user_id }}"
+      msg: "{{ home_dir }}"
+
+  - name: "debug usr"
+    debug:
+      msg: "{{ ansible_user_id }}"
 
   - name: "Install curl"
     become: yes
