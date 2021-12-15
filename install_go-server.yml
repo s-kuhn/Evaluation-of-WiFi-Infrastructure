@@ -6,6 +6,15 @@
     user_: "{{ lookup('env', 'USR') }}"
 
   tasks:
+
+    - name: "debug home"
+      debug:
+        msg: "{{ home_dir }}"
+
+    - name: "debug home"
+      debug:
+        msg: "{{ user_ }}"
+
     - name: "Install go"
       become: yes
       apt:
