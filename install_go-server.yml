@@ -47,7 +47,7 @@
       ansible.builtin.file:
         path: "{{ home_dir }}/go-simple-upload-server-1.2"
         state: directory
-        mode: '0755'
+        mode: 0755
 
     - name: "Extract repo into home_dir"
       ansible.builtin.unarchive:

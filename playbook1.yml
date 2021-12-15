@@ -5,17 +5,8 @@
   gather_facts: false
   vars:
     fileserver: "{{ 192.168.178.32:8888 }}"
-    home_dir: "{{ lookup('env', 'HOME') }}"
 
   tasks:
-  - name: "debug home"
-    debug:
-      msg: "{{ home_dir }}"
-
-  - name: "debug usr"
-    debug:
-      msg: "{{ ansible_user_id }}"
-
   - name: "Install curl"
     become: yes
     apt:
