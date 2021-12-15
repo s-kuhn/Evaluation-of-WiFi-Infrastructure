@@ -4,7 +4,7 @@
   strategy: free
   gather_facts: false
   vars:
-    fileserver: "{{ 192.168.178.52:8888 }}"
+    fileserver: "{{ 192.168.178.32:8888 }}"
 
   tasks:
   - name: "Install curl"
