@@ -6,14 +6,6 @@
 
   tasks:
 
-    - name: "debug home"
-      debug:
-        msg: "{{ home_dir }}"
-
-    - name: "debug home"
-      debug:
-        msg: "{{ ansible_user_id }}"
-
     - name: "Install go"
       become: yes
       apt:
@@ -23,13 +15,13 @@
       shell: 'go version'
 
     - name: "add go path"
-      shell: "export GOPATH=$HOME/sascha/go"
+      shell: "export GOPATH=$HOME/{{ ansible_user_id }}/go"
 
     - name: "Add another bin dir to system-wide $PATH."
       become: yes
       copy:
         dest: /etc/profile.d/custom-path.sh
-        content: 'PATH=$PATH:/home/sascha/go/bin'
+        content: 'PATH=$PATH:{{ home_dir }}/go/bin'
 
     #- name: "install go-server"
     #  shell: 'go install github.com/mayth/go-simple-upload-server'
@@ -54,28 +46,28 @@
         url: https://github.com/mayth/go-simple-upload-server/archive/refs/tags/v1.2.tar.gz
         dest: "{{ home_dir }}"
         mode: 0755
-        owner: "{{ user_ }}"
+        owner: "{{ ansible_user_id }}"
 
-    - name: Create a directory if it does not exist
+    - name: "Create a directory if it does not exist"
       ansible.builtin.file:
-        path: /home/sascha/go-simple-upload-server-1.2
+        path: "{{ home_dir }}/go-simple-upload-server-1.2"
         state: directory
         mode: '0755'
 
-    - name: Extract /home/sascha/go-simple-upload-server-1.2.tar.gz into /home/sascha
+    - name: "Extract repo into home_dir"
       ansible.builtin.unarchive:
-        src: /home/sascha/go-simple-upload-server-1.2.tar.gz
-        dest: /home/sascha
+        src: "{{ home_dir }}/go-simple-upload-server-1.2.tar.gz"
+        dest: "{{ home_dir }}"
 
     - name: "build"
       shell: go build
       args:
-        chdir: /home/sascha/go-simple-upload-server-1.2
+        chdir: "{{ home_dir }}/go-simple-upload-server-1.2"
 
     - name: "move file"
       become: yes
       copy:
-        src: /home/sascha/go-simple-upload-server-1.2/go-simple-upload-server
+        src: "{{ home_dir }}/go-simple-upload-server-1.2/go-simple-upload-server"
         dest: /usr/local/bin
 
     - name: "move .service file"
