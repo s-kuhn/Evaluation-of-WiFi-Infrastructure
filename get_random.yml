@@ -1,0 +1,15 @@
+---
+# Get random number an print
+
+- name: "Set random number"
+  set_fact:
+    number: "{{ 31 | random(start=10) }}" # Set a local random number between 10 and 30
+
+- name: "Print random number from above"
+  debug:
+    var: "{{ number }}"
+
+- name: "Wait for random time"
+  wait_for:
+    timeout: "{{ number }}"
+...
