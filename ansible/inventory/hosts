@@ -1,5 +1,5 @@
 [fileserver]
-fileserver ansible_host=192.168.178.52 ansible_user=sascha ansible_connection=ssh
+fileserver ansible_host=192.168.178.32 ansible_user=sascha ansible_connection=ssh
 
 [clients]
 raspberry-B ansible_host=192.168.178.22 ansible_connection=ssh ansible_user=pi ansible_python_interpreter=/usr/bin/python3
