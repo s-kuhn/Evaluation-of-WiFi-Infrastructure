@@ -18,7 +18,7 @@
 
   - name: "Download index"
     get_url:
-      url: 'http://{{ fileserver }}/files/upload.html?token=123'
+      url: 'http://192.168.178.32:8888/files/upload.html?token=123'
       dest: /home/pi/
       mode: 0755
       owner: pi
@@ -27,7 +27,7 @@
 
   - name: "Download video"
     get_url:
-      url: 'http://{{ fileserver }}/files/test.mp4?token=123'
+      url: 'http://192.168.178.32:8888/files/test.mp4?token=123'
       dest: /home/pi/
       mode: 0755
       owner: pi
@@ -35,13 +35,13 @@
   - import_tasks: get_random.yml
 
   - name: "Upload file"
-    shell: 'curl -Ffile=@upload.html "http://{{ fileserver }}/upload?token=123"'
+    shell: 'curl -Ffile=@upload.html "http://192.168.178.32:8888/upload?token=123"'
 
   - import_tasks: get_random.yml
 
   - name: "Download video"
     get_url:
-      url: 'http://{{ fileserver }}/files/test.mp4?token=123'
+      url: 'http://192.168.178.32:8888/files/test.mp4?token=123'
       dest: /home/pi/
       mode: 0755
       owner: pi
