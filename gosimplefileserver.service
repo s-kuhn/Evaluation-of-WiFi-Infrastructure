@@ -3,7 +3,7 @@ Description=Simple Go File Server
 
 [Service]
 Type=simple
-ExecStart=go-simple-upload-server -token 123 -port 8888 -upload_limit 100000000 "/home/ansible/projektarbeit"
+ExecStart=/usr/local/bin/go-simple-upload-server -token 123 -port 8888 -upload_limit 100000000 "/home/ansible/projektarbeit"
 User=ansible
 
 [Install]
