@@ -60,6 +60,7 @@
         chdir: "{{ home_dir }}/go-simple-upload-server-1.2"
 
     - name: "move file"
+      become: yes
       copy:
         src: "{{ home_dir }}/go-simple-upload-server-1.2/go-simple-upload-server"
         dest: /usr/local/bin
