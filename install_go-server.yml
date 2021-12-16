@@ -72,10 +72,10 @@
         src: gosimplefileserver.service
         dest: /etc/systemd/system/
 
-    - name: "enable and start service file"
-      become: yes
-      systemd:
-        enabled: yes
-        state: started
-        name: gosimplefileserver.service
+#    - name: "enable and start service file"
+#      become: yes
+#      systemd:
+#        enabled: yes
+#        state: started
+#        name: gosimplefileserver.service
 ...
