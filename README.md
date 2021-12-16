@@ -55,6 +55,8 @@ Requirements curl: usuly included
 
 `git clone https://github.com/s-kuhn/projektarbeit.git`
 
+`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`
+
 
 ### Command to start
 
