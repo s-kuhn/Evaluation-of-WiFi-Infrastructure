@@ -1,0 +1,37 @@
+---
+- name: "20 request 5mb down"
+  hosts: clients
+  strategy: free
+  gather_facts: false
+  vars:
+    fileserver: "{{ 192.168.178.32:8888 }}"
+
+  tasks:
+  - name: "Install curl"
+    become: yes
+    apt:
+      name: curl
+      update_cache: yes
+      cache_valid_time: 3600
+
+  - import_tasks: get_random.yml
+
+  - name: "Download video"
+    get_url:
+      url: 'http://192.168.178.32:8888/files/test.mp4?token=123'
+      dest: /home/pi/
+      mode: 0755
+      owner: pi
+    async: 45
+    poll: 0
+
+  - import_tasks: get_random.yml
+
+  - name: "Download website 20 times"
+    get_url:
+      url: 'http://192.168.178.32:8888/files/upload.html?token=123'
+      dest: /home/pi/
+      mode: 0755
+      owner: pi
+    with_sequence: count=20
+...
