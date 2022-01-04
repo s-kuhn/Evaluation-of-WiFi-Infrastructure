@@ -25,8 +25,6 @@
     async: 45
     poll: 0
 
-  - import_tasks: get_random.yml
-
   - name: "Download website 20 times"
     get_url:
       url: 'http://192.168.178.52:8888/files/upload.html?token=123'

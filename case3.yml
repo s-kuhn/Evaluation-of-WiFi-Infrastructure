@@ -38,6 +38,4 @@
   - name: "Upload file"
     shell: 'curl -Ffile=@upload.html "http://192.168.178.52:8888/upload?token=123"'
     with_sequence: count=50
-    async: 240
-    poll: 0
 ...
