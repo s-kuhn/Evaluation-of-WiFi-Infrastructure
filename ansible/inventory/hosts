@@ -1,4 +1,4 @@
-[fileserver]
+[fileservers]
 fileserver ansible_host=192.168.178.32 ansible_user=sascha ansible_connection=ssh
 
 [clients:children]
