@@ -1,5 +1,6 @@
 ---
 - name: "Large + 20"
+  hosts: clients
   strategy: free
   gather_facts: false
   vars:
@@ -7,7 +8,6 @@
 
   tasks:
   - name: "Install curl"
-    hosts: clients
     become: yes
     apt:
       name: curl
@@ -17,7 +17,7 @@
   - import_tasks: get_random.yml
 
   - name: "Download iso"
-    hosts: clients2
+    when: inventory_hostname in groups['clients2']
     get_url:
       url: 'http://192.168.178.52:8888/files/test.mp4?token=123'
       dest: /home/pi/
@@ -28,12 +28,12 @@
     poll: 0
 
   - name: "Wait for 2 min"
-    hosts: clients1
+    when: inventory_hostname in groups['clients1']
     wait_for:
       timeout: 120
 
   - name: "Download website 20 times"
-    hosts: clients1
+    when: inventory_hostname in groups['clients1']
     get_url:
       url: 'http://192.168.178.52:8888/files/upload.html?token=123'
       dest: /home/pi/
