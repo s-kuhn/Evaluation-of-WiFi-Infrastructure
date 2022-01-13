@@ -64,7 +64,7 @@
       copy:
         src: "{{ home_dir }}/go-simple-upload-server-1.2/go-simple-upload-server"
         dest: /usr/local/bin
-        mode: '700'
+        mode: '755'
 
     - name: "move .service file"
       become: yes
