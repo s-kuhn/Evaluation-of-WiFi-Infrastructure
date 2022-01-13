@@ -7,6 +7,18 @@
     fileserver: "{{ 192.168.178.21:8888 }}"
 
   tasks:
+  - name: Create the wifi connection
+    community.general.nmcli:
+      type: wifi
+      conn_name: Projektarbeit
+      ifname: wlan0
+      ssid: Projektarbeit
+      wifi_sec:
+        key-mgmt: wpa2
+        psk: pAssw0rd!
+      autoconnect: true
+      state: present
+
   - name: "Install curl"
     become: yes
     apt:
