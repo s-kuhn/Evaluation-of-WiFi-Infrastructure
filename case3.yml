@@ -14,7 +14,7 @@
       ifname: wlan0
       ssid: Projektarbeit
       wifi_sec:
-        key-mgmt: wpa2
+        key-mgmt: wpa-psk
         psk: pAssw0rd!
       autoconnect: true
       state: present
