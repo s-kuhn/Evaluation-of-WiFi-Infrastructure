@@ -1,0 +1,15 @@
+[fileservers]
+fileserver ansible_host=192.168.178.52 ansible_user=sascha ansible_connection=ssh
+
+[clients:children]
+clients1
+clients2
+
+[clients1]
+raspberry-B ansible_host=192.168.178.31 ansible_connection=ssh ansible_user=pi ansible_python_interpreter=/usr/bin/python3
+raspberry-A ansible_host=192.168.178.36 ansible_connection=ssh ansible_user=pi ansible_python_interpreter=/usr/bin/python3
+raspberry-fabio ansible_host=192.168.178.38 ansible_connection=ssh ansible_user=pi ansible_python_interpreter=/usr/bin/python3
+raspberry-marie ansible_host=192.168.178.39 ansible_connection=ssh ansible_user=pi ansible_python_interpreter=/usr/bin/python3
+
+[clients2]
+raspberry-AC ansible_host=192.168.178.25 ansible_connection=ssh ansible_user=pi ansible_python_interpreter=/usr/bin/python3
