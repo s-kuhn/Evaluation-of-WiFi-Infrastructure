@@ -65,8 +65,3 @@ Requirements curl: usuly included
 `command time ansible-playbook -v ../install_go-server.yml -i inventory -e ansible_python_interpreter=/usr/bin/python3 --ask-become-pass`
 
 `command time ansible-playbook -v ../playbook1.yml -i inventory -e ansible_python_interpreter=/usr/bin/python3`
-
-### TODO
-
-- mehr variation
-- pfade verallgemeinern
