@@ -5,10 +5,9 @@ services:
       stdin_open: true # docker run -i
       tty: true        # docker run -t
       ports:
-      - "192.168.189.10:53:53/tcp"
-      - "192.168.189.10:53:53/udp"
-      - "192.168.189.10:80:80"
-      - "192.168.189.10:443:443"
+      - "192.168.189.5:8888:8888"
+
+      - "192.168.178.23:8888:8888"
       volumes:
       - C:\Users\sk96\Documents\_HSKA\projektarbeit:/home/projektarbeit
       working_dir: /home/projektarbeit
@@ -18,11 +17,6 @@ services:
       image: willhallonline/ansible:2.11-ubuntu-20.04
       stdin_open: true # docker run -i
       tty: true        # docker run -t
-      ports:
-      - "192.168.178.10:53:53/tcp"
-      - "192.168.178.10:53:53/udp"
-      - "192.168.178.10:80:80"
-      - "192.168.178.10:443:443"
       volumes:
       - C:\Users\sk96\Documents\_HSKA\projektarbeit:/ansible
       - C:\Users\sk96\Documents\_HSKA\projektarbeit\.ssh\id_rsa:/root/.ssh/id_rsa
@@ -30,3 +24,40 @@ services:
         ANSIBLE_HOST_KEY_CHECKING: False
       working_dir: /ansible
       entrypoint: /bin/bash
+
+
+  monitor:
+    image: inzania/network-traffic-metrics:latest
+    network_mode: host
+    environment:
+      - "NTM_INTERFACE=projektarbeit_default"
+      - "NTM_FILTERS=$NTM_FILTERS"
+
+
+  prometheus:
+    image: prom/prometheus:main
+    ports:
+      - 9090:9090
+    volumes:
+      - ./network-traffic-metrics/prometheus/:/etc/prometheus
+      - prometheus-data:/prometheus
+    command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
+    extra_hosts:
+      - "monitor:192.168.189.5"
+
+  grafana:
+    image: grafana/grafana:6.6.2
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./network-traffic-metrics/grafana/provisioning:/etc/grafana/provisioning
+    links:
+      - "prometheus:prometheus"
+    environment:
+      - "GF_INSTALL_PLUGINS=grafana-piechart-panel"
+
+
+volumes:
+  prometheus-data:
+  grafana-data:
