@@ -5,7 +5,7 @@ services:
       stdin_open: true # docker run -i
       tty: true        # docker run -t
       ports:
-      - "192.168.189.5:8888:8888"
+      - "192.168.189.11:8888:8888"
 
       - "192.168.178.40:8888:8888"
       volumes:
@@ -21,7 +21,7 @@ services:
       - ./:/ansible
       - ./.ssh/id_rsa:/root/.ssh/id_rsa
       environment:
-        - "ANSIBLE_HOST_KEY_CHECKING=false"
+        - "ANSIBLE_HOST_KEY_CHECKING: false"
       working_dir: /ansible
       entrypoint: /bin/bash
 
@@ -41,7 +41,7 @@ services:
       - prometheus-data:/prometheus
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
     extra_hosts:
-      - "monitor:192.168.189.5"
+      - "monitor:192.168.189.11"
 
   grafana:
     image: grafana/grafana:6.6.2
