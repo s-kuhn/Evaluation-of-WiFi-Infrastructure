@@ -9,7 +9,7 @@ services:
 
       - "192.168.178.40:8888:8888"
       volumes:
-      - C:\Users\sk96\Documents\_HSKA\projektarbeit:/home/projektarbeit
+      - ./:/home/projektarbeit
       working_dir: /home/projektarbeit
       command: -port 8888 -token 123 -upload_limit 100000000 /home/projektarbeit
 
@@ -18,10 +18,10 @@ services:
       stdin_open: true # docker run -i
       tty: true        # docker run -t
       volumes:
-      - C:\Users\sk96\Documents\_HSKA\projektarbeit:/ansible
-      - C:\Users\sk96\Documents\_HSKA\projektarbeit\.ssh\id_rsa:/root/.ssh/id_rsa
+      - ./:/ansible
+      - ./.ssh/id_rsa:/root/.ssh/id_rsa
       environment:
-        "ANSIBLE_HOST_KEY_CHECKING=false"
+        - "ANSIBLE_HOST_KEY_CHECKING=false"
       working_dir: /ansible
       entrypoint: /bin/bash
 
