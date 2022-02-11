@@ -7,7 +7,7 @@ services:
       ports:
       - "192.168.189.5:8888:8888"
 
-      - "192.168.178.23:8888:8888"
+      - "192.168.178.40:8888:8888"
       volumes:
       - C:\Users\sk96\Documents\_HSKA\projektarbeit:/home/projektarbeit
       working_dir: /home/projektarbeit
@@ -25,14 +25,12 @@ services:
       working_dir: /ansible
       entrypoint: /bin/bash
 
-
   monitor:
     image: inzania/network-traffic-metrics:latest
     network_mode: host
     environment:
       - "NTM_INTERFACE=projektarbeit_default"
       - "NTM_FILTERS=$NTM_FILTERS"
-
 
   prometheus:
     image: prom/prometheus:main
@@ -56,7 +54,6 @@ services:
       - "prometheus:prometheus"
     environment:
       - "GF_INSTALL_PLUGINS=grafana-piechart-panel"
-
 
 volumes:
   prometheus-data:
