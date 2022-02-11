@@ -21,7 +21,7 @@ services:
       - ./:/ansible
       - ./.ssh/id_rsa:/root/.ssh/id_rsa
       environment:
-        - "ANSIBLE_HOST_KEY_CHECKING: false"
+        - "ANSIBLE_HOST_KEY_CHECKING=false"
       working_dir: /ansible
       entrypoint: /bin/bash
 
