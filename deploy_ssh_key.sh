@@ -11,11 +11,12 @@ echo $(ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa <<<y >/dev/null 2>&1) & e
 
 # Definition of the servers
 SERVERS=(
-  "192.168.178.25"
   "192.168.178.31"
+  "192.168.178.25"
   "192.168.178.36"
   "192.168.178.38"
   "192.168.178.39"
+  "192.168.178.40"
 )
 
 # Make sure we have your password
@@ -31,17 +32,32 @@ export SSHPASS=$1
 # Iterate over all servers
 for SERVER in "${SERVERS[@]}"
 do
-  # Echo the server name
-  echo $SERVER
+  if [[ $SERVER == "192.168.178.40" ]]; then
+    echo 40
 
-  ssh-keygen -f "/root/.ssh/known_hosts" -R "192.168.178.25"
-   
-  # Copy our key the first time to allow
-  sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no pi@$SERVER || echo "FAILED"
-   
-  # Clean the .ssh folder
-  ssh pi@$SERVER 'rm -rf .ssh'
-   
-  # Add back our key, as we have remove the former authorized keys, along with the new one!
-  sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no pi@$SERVER || echo "FAILED"
+    ssh-keygen -f "/root/.ssh/known_hosts" -R "192.168.178.40"
+
+    # Copy our key the first time to allow
+    sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@$SERVER || echo "FAILED"
+     
+    # Clean the .ssh folder
+    ssh root@$SERVER 'rm -rf .ssh'
+     
+    # Add back our key, as we have remove the former authorized keys, along with the new one!
+    sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@$SERVER || echo "FAILED"
+  else
+    # Echo the server name
+    echo $SERVER
+
+    ssh-keygen -f "/root/.ssh/known_hosts" -R $SERVER
+     
+    # Copy our key the first time to allow
+    sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no pi@$SERVER || echo "FAILED"
+     
+    # Clean the .ssh folder
+    ssh pi@$SERVER 'rm -rf .ssh'
+     
+    # Add back our key, as we have remove the former authorized keys, along with the new one!
+    sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no pi@$SERVER || echo "FAILED"
+  fi
 done

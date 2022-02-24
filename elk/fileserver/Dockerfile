@@ -1,8 +1,9 @@
 FROM mayth/simple-upload-server
 
-RUN apk update
-RUN apk add openssh
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+RUN apk add sysstat
 ADD ./sshd_config /etc/ssh/sshd_config
+ADD entrypoint.sh /
+RUN apk add --update --no-cache openssh
 RUN echo 'root:raspberry' | chpasswd
-CMD ["/usr/sbin/sshd", "-D"]
-EXPOSE 2200
+ENTRYPOINT ["/entrypoint.sh"]

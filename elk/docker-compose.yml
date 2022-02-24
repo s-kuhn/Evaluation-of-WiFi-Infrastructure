@@ -87,21 +87,24 @@ services:
     container_name: fileserver
     build:
       context: fileserver/
+    networks:
+      - elk
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     ports:
     - "192.168.189.5:8888:8888"
     - "192.168.178.40:8888:8888"
-    - "192.168.178.40:2200:2200"
+    - "22:22"
     volumes:
     - ~/projektarbeit:/home/projektarbeit
     working_dir: /home/projektarbeit
-    command: -port 8888 -token 123 -upload_limit 100000000 /home/projektarbeit
 
   ansible-controller:
     container_name: ansible
     build:
       context: ansible/
+    networks:
+      - elk
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     volumes:

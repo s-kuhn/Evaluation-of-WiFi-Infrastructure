@@ -1,13 +1,13 @@
 ---
 - name: "50"
-  hosts: clients
+  hosts: all
   strategy: free
   gather_facts: false
 
   tasks:
 
   - name: "Install curl"
-    #when: inventory_hostname in groups['clients']
+    when: inventory_hostname in groups['clients']
     become: yes
     apt:
       name: curl
@@ -15,6 +15,7 @@
       cache_valid_time: 3600
 
   - name: install sar
+    when: inventory_hostname in groups['clients']
     become: yes
     apt:
       name: sysstat
@@ -22,14 +23,23 @@
       cache_valid_time: 3600
 
   - name: "start monitroing"
-    shell: 'sar -n DEV 1 360 | grep "wlan0" | nc -q0 192.168.178.40 5000'
+    when: inventory_hostname in groups['clients']
+    shell: 'sar -n DEV 1 300 | sed "s/^/`date +%s` {{ inventory_hostname }} /" | grep "wlan0" | nc -q0 192.168.178.40 5000'
+    #shell: 'sar -n DEV 1 200 | sed "s/^/`date` raspberry-AC /" | grep "wlan0" | nc -q0 192.168.178.40 5000'
+    async: 360
+    poll: 0
+
+  - name: "start monitroing"
+    when: inventory_hostname in groups['fileserver']
+    shell: 'sar -n DEV 1 300 | sed "s/^/`date +%s` fileserver /" | grep "eth0" | nc 192.168.178.40 5000'
+    #shell: 'sar -n DEV 1 200 | sed "s/^/`date` raspberry-AC /" | grep "wlan0" | nc 192.168.178.40 5000'
     async: 360
     poll: 0
 
   - import_tasks: get_random.yml
 
   - name: "Download video"
-    #when: inventory_hostname in groups['clients']
+    when: inventory_hostname in groups['clients']
     get_url:
       url: 'http://192.168.189.5:8888/files/test.mp4?token=123'
       dest: /home/pi/
@@ -39,7 +49,7 @@
     poll: 0
 
   - name: "Download website 50 times"
-    #when: inventory_hostname in groups['clients']
+    when: inventory_hostname in groups['clients']
     get_url:
       url: 'http://192.168.189.5:8888/files/upload.html?token=123'
       dest: /home/pi/
@@ -50,7 +60,7 @@
     poll: 0
 
   - name: "Upload file"
-    #when: inventory_hostname in groups['clients']
+    when: inventory_hostname in groups['clients']
     shell: 'curl -Ffile=@upload.html "http://192.168.189.5:8888/upload?token=123"'
     with_sequence: count=50
 ...
