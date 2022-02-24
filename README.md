@@ -14,42 +14,15 @@ https://ieeexplore.ieee.org/document/7098698
 ## Ansatz
 Per Ansible sich auf alle Clients schalten und auf diesen ein Playbook abarbeiten, welches den Traffic vom Webserver erzeugt/simuliert.
 
-Setup Fileserver:
-
-install go: https://golang.org/doc/install
-build go-simple-upload-server: https://github.com/mayth/go-simple-upload-server
-Move file to /usr/local/bin
-follow: https://wiki.ubuntuusers.de/Howto/systemd_Service_Unit_Beispiel/
-start server with this file with command: `go-simple-upload-server -token 123 -port 8888 -upload_limit 100000000`
-
 
 ### Setting up clients:
 install Raspian and create ssh folder befor first boot.
 
 WIFI: https://www.raspberrypi.com/documentation/computers/configuration.html
 
-Change PW: `sudo passwd`
+`sudo raspi-config`
 
-current: `raspberry`
-
-new: `rAspberry!`
-
-Requirements curl: usuly included
-
-
-### Setting up Server and Ansible Controller
-
-`sudo apt-get update`
-
-`sudo apt-get upgrade -y`
-
-`ssh-keygen`
-
-`ssh-copy-id username@remote_host`
-
-`python3 -V`
-
-`sudo apt install ansible -y`
+### Setting up server side:
 
 `sudo apt install git -y`
 
@@ -57,11 +30,23 @@ Requirements curl: usuly included
 
 `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`
 
+Set IP in:
+- docker-compose file service: fileserver
+- every playbook
+- Hostsfile (Clients)
+- Deploy_shh_keys.sh
+
+`cd elk/`
+
+`docker-compose build`
+
+`docker-compose up`
+
 
 ### Command to start
 
-`cd projektarbeit/ansible`
+`docker exec -it ansible /bin/bash`
 
-`command time ansible-playbook -v ../install_go-server.yml -i inventory -e ansible_python_interpreter=/usr/bin/python3 --ask-become-pass`
+`./deploy_ssh_key.sh raspberry`
 
-`command time ansible-playbook -v ../playbook1.yml -i inventory -e ansible_python_interpreter=/usr/bin/python3`
+`command time ansible-playbook -v Playbooks/case1.yml -i hosts`
