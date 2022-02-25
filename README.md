@@ -65,9 +65,9 @@ Clone Repo:
 
 Set ipadresses following files:
 - docker-compose file service: fileserver
-- every playbook
+- every playbook line 7 and 8
 - Hostsfile
-- deploy_shh_keys.sh line 11 & Server array
+- deploy_shh_keys.sh array and line 34
 
 `cd elk/`
 
@@ -98,4 +98,4 @@ https://support.logz.io/hc/en-us/articles/210207225-How-can-I-export-import-Dash
 
 `./deploy_ssh_key.sh raspberry`
 
-`command time ansible-playbook -v Playbooks/case1.yml -i hosts`
+`command time ansible-playbook Playbooks/case1.yml -i hosts`

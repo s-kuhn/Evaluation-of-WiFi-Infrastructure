@@ -8,9 +8,6 @@
 
 echo $(ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa <<<y >/dev/null 2>&1) & echo "Key generated"
 
-# Definition of fileserver
-$FILESERVER = "192.168.178.40"
-
 # Definition of the servers
 SERVERS=(
   "192.168.178.31"
@@ -18,7 +15,7 @@ SERVERS=(
   "192.168.178.36"
   "192.168.178.38"
   "192.168.178.39"
-  $FILESERVER
+  "192.168.178.40" #Fileserver
 )
 
 # Make sure we have your password
@@ -34,8 +31,8 @@ export SSHPASS=$1
 # Iterate over all servers
 for SERVER in "${SERVERS[@]}"
 do
-  if [[ $SERVER == $FILESERVER ]]; then
-    echo 40
+  if [[ $SERVER == "192.168.178.40" ]]; then
+    echo $SERVER
 
     ssh-keygen -f "/root/.ssh/known_hosts" -R $SERVER
 
