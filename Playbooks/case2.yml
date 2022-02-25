@@ -3,7 +3,7 @@
   hosts: all
   strategy: free
   gather_facts: false
-    vars:
+  vars:
     fileserver: 192.168.189.5
     logstash: 192.168.178.40
 
@@ -27,15 +27,13 @@
 
   - name: "start monitroing"
     when: inventory_hostname in groups['clients']
-    shell: 'sar -n DEV 1 200 | sed "s/^/`date +%s` {{ inventory_hostname }} /" | grep "wlan0" | nc -q0 {{ logstash }} 5000'
-    #shell: 'sar -n DEV 1 200 | sed "s/^/`date` raspberry-AC /" | grep "wlan0" | nc -q0 192.168.178.40 5000'
+    shell: 'sar -n DEV 1 200 | sed "s/^/`date +"%Y-%m-%d"` {{ inventory_hostname }} /" | grep "wlan0" | nc -q0 {{ logstash }} 5000'
     async: 300
     poll: 0
 
   - name: "start monitroing"
     when: inventory_hostname in groups['fileservers']
-    shell: 'sar -n DEV 1 200 | sed "s/^/`date +%s` {{ inventory_hostname }} /" | grep "eth0" | nc {{ logstash }} 5000'
-    #shell: 'sar -n DEV 1 200 | sed "s/^/`date` raspberry-AC /" | grep "wlan0" | nc 192.168.178.40 5000'
+    shell: 'sar -n DEV 1 200 | sed "s/^/`date +"%Y-%m-%d"` {{ inventory_hostname }} /" | grep "eth0" | nc {{ logstash }} 5000'
     async: 300
     poll: 0
 
