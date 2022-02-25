@@ -23,6 +23,8 @@ The data is directly send to the Logstash via netcat.
 The clients need to be connected to the wifi as well as the management network over ethernet
 The docker host is also connected with two interfaces to both networks.
 
+![diagramm](https://user-images.githubusercontent.com/62448107/155655469-66d681d3-ef49-4df4-8506-97caf589d30b.jpg)
+
 
 ### Setting up clients:
 Here done with raspberrry pi's. Install a premodified image with hostname, wifi, ssh and timezone already set up: 
