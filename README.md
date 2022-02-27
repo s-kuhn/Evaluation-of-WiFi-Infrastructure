@@ -6,7 +6,7 @@
 https://ieeexplore.ieee.org/document/7098698
 
 ## Requirements
-- Ubunut
+- Ubuntu
 - Docker-compose https://docs.docker.com/engine/install/ubuntu/
 - Accesspoint
 - Number of Clients for Classroomszenario (ca. 30-60)
@@ -35,7 +35,9 @@ Connect the pi via ethernet to the management network.
 
 Docker Engine:
 `sudo apt install git -y`
+
 `sudo apt-get update`
+
 `sudo apt-get install \
     ca-certificates \
     curl \
@@ -49,6 +51,7 @@ Docker Engine:
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null`
 
 `sudo apt-get update`
+
 `sudo apt-get install docker-ce docker-ce-cli containerd.io -y`
 
 `sudo usermod -aG docker $USER`
@@ -66,7 +69,7 @@ Clone Repo:
 `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`
 
 Set ipadresses following files:
-- docker-compose file service: fileserver
+- docker-compose file service: fileserver, logstash
 - every playbook line 7 and 8
 - Hostsfile
 - deploy_shh_keys.sh array and line 34
@@ -90,6 +93,8 @@ elk/.env line 22
 `docker-compose up -d logstash kibana`
 
 load sample data.
+
+Import Dashboard from elk/kibana:
 
 https://support.logz.io/hc/en-us/articles/210207225-How-can-I-export-import-Dashboards-Searches-and-Visualizations-from-my-own-Kibana-
 
