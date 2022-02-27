@@ -45,7 +45,7 @@
   - name: "Wait for 2 min"
     when: inventory_hostname in groups['clients1']
     wait_for:
-      timeout: 120
+      timeout: 60
 
   - name: "Download website 20 times"
     when: inventory_hostname in groups['clients1']

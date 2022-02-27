@@ -26,7 +26,7 @@
       cache_valid_time: 3600
 
   - name: "start monitroing"
-    shell: 'sar -n DEV 1 200 | sed "s/^/`date +"%Y-%m-%d"` {{ inventory_hostname }} /" | nc -q0 {{ logstash }} 5000'
+    shell: 'sar -n DEV 1 300 | sed "s/^/`date +"%Y-%m-%d"` {{ inventory_hostname }} /" | nc -q0 {{ logstash }} 5000'
     async: 360
     poll: 0
 

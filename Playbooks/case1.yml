@@ -34,7 +34,7 @@
     wait_for:
       timeout: "2"
 
-  - import_tasks: get_random.yml
+ # - import_tasks: get_random.yml
 
   - name: "Download video"
     when: inventory_hostname in groups['clients']
