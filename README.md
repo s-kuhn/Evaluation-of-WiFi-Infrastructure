@@ -2,7 +2,12 @@
 
 ## Table of Contents
 
-1. [Problem](##Problem)
+1. [Problem](## Problem)
+2. [Requirements](## Requirements)
+3. [Approach](## Aproach)
+   - [Setting up Clients](### Setting up Clients)
+   - [Setting up docker host](### Setting up docker host)
+   - [Command to start](### Command to start)
 
 ## Problem
 https://ieeexplore.ieee.org/document/7098698
