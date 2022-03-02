@@ -5,9 +5,17 @@
 1. [Problem](#problem)
 2. [Requirements](#requirements)
 3. [Approach](#approach)
+4. [Installation](#installation)
    - [Setting up clients](#setting-up-clients)
    - [Setting up docker host](#setting-up-docker-host)
    - [Command to start](#command-to-start)
+5. [Modifing Playbooks](#modifing-playbooks)
+   - [Strategy](#strategy)
+   - [Async](#async)
+   - [Timeout](#timeout)
+   - [Conditions](#conditions)
+   - [Loop](#loop)
+   - [Using other files](#using-other-files)
 
 ## Problem
 https://ieeexplore.ieee.org/document/7098698
@@ -34,6 +42,7 @@ The docker host is also connected with two interfaces to both networks.
 
 ![diagramm](https://user-images.githubusercontent.com/62448107/155655469-66d681d3-ef49-4df4-8506-97caf589d30b.jpg)
 
+## Installation
 
 ### Setting up clients:
 Here done with raspberrry pi's. Install a premodified image with hostname, wifi, ssh and timezone already set up:
@@ -194,3 +203,26 @@ Depending on how many Clients you have you need to adjust the graphs:
 ![Screenshot](https://user-images.githubusercontent.com/62448107/155896941-1751a0af-36f9-486a-ad7c-dbf1f254e149.png)
 
 ![Screenshot2](https://user-images.githubusercontent.com/62448107/155900234-0f9ae71a-01eb-48ab-a288-55b85b7f0495.png)
+
+## Modifing Playbooks
+
+The actual traffic generating happens in the last task of each playbook. The get-random.yml makes the clients wait for a random time of seconds between 5 and 10 befor starting the actual tasks. This is done so the clients have a more realistic behavior an can easily be adjustied in the file.
+
+### Strategy
+All playbooks run in free strategy that means that if a client has finished a task befor another clients he doesn't has to wait for all to finish but continues with the next task.
+
+### Async
+Some task have a attribut `async` an `poll`:
+> If you want to run multiple tasks in a playbook concurrently, use async with poll set to 0. When you set poll: 0, Ansible starts the task and immediately moves on to the next task without waiting for a result. Each async task runs until it either completes, fails or times out (runs longer than its async value). The playbook run ends without checking back on async tasks.
+
+### Timeout
+Others may have a attribut `wait_for` with `timeout`. the number afert timeout ist the amout of seconds the task waits befor continuing with the next.
+
+### Conditions
+In case2 I use the contition `when` and ask if a client is in a specific inventory group. If that contiotion is true the task will run else it is skippped. The groups are initialiced in the `hosts` file in the "[]" brackets.
+
+### Loop
+Some tasks are run multiple time. That is done with the attribut `with_sequence`. The variable `count` contains the amount of times the rask is run.
+
+### Using other files
+Last thing you may like to adjust is the files to generate the network traffic. For that you need to change the url in the corresponding task.
