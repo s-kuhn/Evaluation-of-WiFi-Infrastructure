@@ -1,18 +1,12 @@
 [fileservers]
-fileserver ansible_host=192.168.178.40 ansible_user=root ansible_connection=ssh
+fileserver ansible_host=xxx.xxx.xxx.xxx ansible_user=root ansible_connection=ssh
 
 [clients:children]
 clients1
 clients2
 
 [clients1]
-raspberry-flo ansible_host=192.168.178.31 ansible_connection=ssh ansible_user=pi
-raspberry-daniel ansible_host=192.168.178.36 ansible_connection=ssh ansible_user=pi
-#raspberry-fabio ansible_host=192.168.178.38 ansible_connection=ssh ansible_user=pi
-raspberry-marie ansible_host=192.168.178.39 ansible_connection=ssh ansible_user=pi
-raspberry-ruwen ansible_host=192.168.178.24 ansible_connection=ssh ansible_user=pi
-raspberry-matthias ansible_host=192.168.178.27 ansible_connection=ssh ansible_user=pi
-raspberry-david ansible_host=192.168.178.21 ansible_connection=ssh ansible_user=pi
+example1 ansible_host=xxx.xxx.xxx.xxx ansible_connection=ssh ansible_user=pi
 
 [clients2]
-raspberry-AC ansible_host=192.168.178.25 ansible_connection=ssh ansible_user=pi
+example2 ansible_host=xxx.xxx.xxx.xxx ansible_connection=ssh ansible_user=pi

@@ -109,9 +109,7 @@ Clone Repo:
 git clone https://github.com/s-kuhn/projektarbeit.git
 ```
 
-`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`
-
-Set IP-adresses in following files:
+Replace IP-adresses in following files (xxx.xxx.xxx.xxx for management-subnet, xxx.xxx.yyy.xxx for test-subnet):
 - [docker-compose.yml](./elk/docker-compose.yml) line 59, 95 and 96
 - [config.yml](./Playbooks/config.yml)
 - [hosts](./hosts)

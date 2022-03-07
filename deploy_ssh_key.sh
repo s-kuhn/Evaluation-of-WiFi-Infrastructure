@@ -10,15 +10,8 @@ echo $(ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa <<<y >/dev/null 2>&1) & e
 
 # Definition of the servers
 SERVERS=(
-  "192.168.178.31"
-  "192.168.178.21"
-  "192.168.178.27"
-  "192.168.178.24"
-  "192.168.178.25"
-  "192.168.178.36"
-  "192.168.178.38"
-  "192.168.178.39"
-  "192.168.178.40" #Fileserver
+  "xxx.xxx.xxx.xxx"
+  "xxx.xxx.xxx.xxx" #Fileserver
 )
 
 # Make sure we have your password

@@ -8,7 +8,7 @@
     update_cache: yes
     cache_valid_time: 3600
 
-- name: install sar
+- name: "Install sar"
   when: inventory_hostname in groups['clients']
   become: yes
   apt:

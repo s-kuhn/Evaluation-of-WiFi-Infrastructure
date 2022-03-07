@@ -1,5 +1,5 @@
 ---
-- name: "20 small requests and 5 MB download"
+- name: "20 small requests and 60 MB download"
   hosts: all
   strategy: free
   gather_facts: false
