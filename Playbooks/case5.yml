@@ -1,0 +1,55 @@
+---
+- name: "One client download large file, others normal behavior"
+  hosts: all
+  strategy: free
+  gather_facts: false
+
+  tasks:
+  - name: "Load configuration"
+    ansible.builtin.include_vars: "{{ item }}"
+    loop:
+      - config.yml
+
+  - import_tasks: pretasks.yml
+
+  - name: "Start monitroing"
+    shell: 'sar -n DEV 1 200 | sed "s/^/`date +"%Y-%m-%d"` {{ inventory_hostname }} /" | nc -q0 {{ logstash }} 5000'
+    async: 300
+    poll: 0
+
+  - name: "Wait for 2 sec for monitroing"
+    wait_for:
+      timeout: "2"
+
+  - name: "Download website"
+    when: inventory_hostname in groups['clients1']
+    get_url:
+      url: 'http://{{ fileserver }}:8888/files/Amazon.html?token=123'
+      dest: /home/pi/
+      mode: 0755
+      owner: pi
+
+  - name: "Download video"
+    when: inventory_hostname in groups['clients2']
+    get_url:
+      url: 'http://{{ fileserver }}:8888/files/Windows.iso?token=123'
+      dest: /home/pi/
+      mode: 0755
+      owner: pi
+    async: 120
+    poll: 0
+
+  - name: "Download website 20 times"
+    when: inventory_hostname in groups['clients1']
+    get_url:
+      url: 'http://{{ fileserver }}:8888/files/Amazon.html?token=123'
+      dest: /home/pi/
+      mode: 0755
+      owner: pi
+    with_sequence: count=10
+
+  - name: "Upload file"
+    when: inventory_hostname in groups['clients1']
+    shell: 'curl -Ffile=@Amazon.html "http://{{ fileserver }}:8888/upload?token=123"'
+    with_sequence: count=10
+...
