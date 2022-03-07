@@ -1,18 +1,18 @@
 ---
-- name: "Large + 20"
+- name: "Large download on one client and 20 requests from the rest"
   hosts: all
   strategy: free
   gather_facts: false
 
   tasks:
-  - name: Load configuration
+  - name: "Load configuration"
     ansible.builtin.include_vars: "{{ item }}"
     loop:
       - config.yml
 
   - import_tasks: pretasks.yml
 
-  - name: "start monitroing"
+  - name: "Start monitroing"
     shell: 'sar -n DEV 1 200 | sed "s/^/`date +"%Y-%m-%d"` {{ inventory_hostname }} /" | nc -q0 {{ logstash }} 5000'
     async: 300
     poll: 0
@@ -23,7 +23,7 @@
       
   #- import_tasks: get_random.yml
 
-  - name: "Download iso"
+  - name: "Download big file"
     when: inventory_hostname in groups['clients2']
     get_url:
       url: 'http://{{ fileserver }}:8888/files/test.mp4?token=123'
@@ -34,7 +34,7 @@
     poll: 0
     with_sequence: count=2
 
-  - name: "Wait for 5sec"
+  - name: "Wait for 5 seconds"
     when: inventory_hostname in groups['clients1']
     wait_for:
       timeout: 5
