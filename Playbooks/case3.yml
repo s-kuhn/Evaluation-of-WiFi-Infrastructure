@@ -3,27 +3,14 @@
   hosts: all
   strategy: free
   gather_facts: false
-  vars:
-    fileserver: 192.168.189.5
-    logstash: 192.168.178.40
 
   tasks:
+  - name: Load configuration
+    ansible.builtin.include_vars: "{{ item }}"
+    loop:
+      - config.yml
 
-  - name: "Install curl"
-    when: inventory_hostname in groups['clients']
-    become: yes
-    apt:
-      name: curl
-      update_cache: yes
-      cache_valid_time: 3600
-
-  - name: install sar
-    when: inventory_hostname in groups['clients']
-    become: yes
-    apt:
-      name: sysstat
-      update_cache: yes
-      cache_valid_time: 3600
+  - import_tasks: pretasks.yml
 
   - name: "start monitroing"
     shell: 'sar -n DEV 1 300 | sed "s/^/`date +"%Y-%m-%d"` {{ inventory_hostname }} /" | nc -q0 {{ logstash }} 5000'

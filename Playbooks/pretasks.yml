@@ -1,0 +1,17 @@
+---
+
+- name: "Install curl"
+  when: inventory_hostname in groups['clients']
+  become: yes
+  apt:
+    name: curl
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: install sar
+  when: inventory_hostname in groups['clients']
+  become: yes
+  apt:
+    name: sysstat
+    update_cache: yes
+    cache_valid_time: 3600

@@ -3,34 +3,25 @@
   hosts: all
   strategy: free
   gather_facts: false
-  vars:
-    fileserver: 192.168.189.5
-    logstash: 192.168.178.40
 
   tasks:
+  - name: Load configuration
+    ansible.builtin.include_vars: "{{ item }}"
+    loop:
+      - config.yml
 
-  - name: "Install curl"
-    when: inventory_hostname in groups['clients']
-    become: yes
-    apt:
-      name: curl
-      update_cache: yes
-      cache_valid_time: 3600
-
-  - name: install sar
-    when: inventory_hostname in groups['clients']
-    become: yes
-    apt:
-      name: sysstat
-      update_cache: yes
-      cache_valid_time: 3600
+  - import_tasks: pretasks.yml
 
   - name: "start monitroing"
     shell: 'sar -n DEV 1 200 | sed "s/^/`date +"%Y-%m-%d"` {{ inventory_hostname }} /" | nc -q0 {{ logstash }} 5000'
     async: 300
     poll: 0
 
-  - import_tasks: get_random.yml
+  - name: "Wait for 2 sec for monitroing"
+    wait_for:
+      timeout: "2"
+      
+  #- import_tasks: get_random.yml
 
   - name: "Download iso"
     when: inventory_hostname in groups['clients2']
@@ -41,11 +32,12 @@
       owner: pi
     async: 240
     poll: 0
+    with_sequence: count=2
 
-  - name: "Wait for 2 min"
+  - name: "Wait for 5sec"
     when: inventory_hostname in groups['clients1']
     wait_for:
-      timeout: 60
+      timeout: 5
 
   - name: "Download website 20 times"
     when: inventory_hostname in groups['clients1']

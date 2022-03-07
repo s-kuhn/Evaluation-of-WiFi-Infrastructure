@@ -104,9 +104,7 @@ git clone https://github.com/s-kuhn/projektarbeit.git
 
 Set IP-adresses in following files:
 - [docker-compose.yml](./elk/docker-compose.yml) line 59, 95 and 96
-- [case1.yml](./Playbooks/case1.yml) line 7 and 8
-- [case2.yml](./Playbooks/case2.yml) line 7 and 8
-- [case3.yml](./Playbooks/case3.yml) line 7 and 8
+- [config.yml](./Playbooks/config.yml)
 - [hosts](./hosts)
 - [deploy_shh_keys.sh](./deploy_ssh_key.sh) in array and line 34
 

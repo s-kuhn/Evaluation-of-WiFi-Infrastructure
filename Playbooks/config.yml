@@ -1,0 +1,6 @@
+---
+# Fileserver
+fileserver: 192.168.189.5
+
+# Logstash
+logstash: 192.168.178.40
