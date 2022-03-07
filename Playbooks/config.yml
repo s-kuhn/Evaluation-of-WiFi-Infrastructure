@@ -1,6 +1,6 @@
 ---
-# Fileserver
+# Fileserver IP from the subnet to test
 fileserver: 192.168.189.5
 
-# Logstash
+# Logstash TP from the management-subnet
 logstash: 192.168.178.40
