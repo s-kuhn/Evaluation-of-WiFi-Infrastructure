@@ -1,18 +1,18 @@
 ---
-- name: "20 request 5mb down"
+- name: "20 small requests and 5 MB download"
   hosts: all
   strategy: free
   gather_facts: false
 
   tasks:
-  - name: Load configuration
+  - name: "Load configuration"
     ansible.builtin.include_vars: "{{ item }}"
     loop:
       - config.yml
 
   - import_tasks: pretasks.yml
 
-  - name: "start monitroing"
+  - name: "Start monitroing"
     shell: 'sar -n DEV 1 200 | sed "s/^/`date +"%Y-%m-%d"` {{ inventory_hostname }} /" | nc -q0 {{ logstash }} 5000'
     async: 300
     poll: 0
