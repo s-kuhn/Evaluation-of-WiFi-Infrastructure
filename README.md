@@ -196,9 +196,8 @@ Depending on how many Clients you have you need to adjust the graphs:
 - Click on the gear button and choose edit lens
 - Click into the data by what the lens is broke down and adjust the number of values to the number of clients
 
-![image](https://user-images.githubusercontent.com/62448107/157236063-59baa844-cce5-42b2-87bf-d2db075d2721.png)
+![image](https://user-images.githubusercontent.com/62448107/157236256-c349eb2c-54fe-4280-a743-dbf365fa4c6b.png)
 ![image](https://user-images.githubusercontent.com/62448107/157236099-3e843b96-861e-433f-b8c6-16a6a2d7dfd2.png)
-
 
 ## Modifing Playbooks
 
