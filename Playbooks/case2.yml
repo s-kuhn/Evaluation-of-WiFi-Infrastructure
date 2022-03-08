@@ -23,7 +23,7 @@
       
   #- import_tasks: get_random.yml
 
-  - name: "Download big file"
+  - name: "Download video file"
     when: inventory_hostname in groups['clients2']
     get_url:
       url: 'http://{{ fileserver }}:8888/files/test.mp4?token=123'
