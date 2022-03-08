@@ -1,4 +1,4 @@
-# Performance Evaluation of WIFI-Infrastructure in Classroomsituations
+# Performance Evaluation of WIFI-Infrastructure in Classroom-Situations
 
 ## Table of Contents
 
@@ -25,20 +25,19 @@ https://ieeexplore.ieee.org/document/7098698
 - [Docker](https://docs.docker.com/engine/install/ubuntu/ "Install Docker")
 - [Compose](https://docs.docker.com/compose/install/#install-compose-on-linux-systems "Install Docker-Compose")
 - Accesspoint
-- Number of Clients for Classroomszenario (ca. 30-60)
-- Router with two Subnets (one for management, one for the szenario)
+- Number of clients for a classroom-scenario
+- Router with two subnets (one for management, one for the scenario)
 
 ## Approach
-Docker Compose is setting up five Containers:
-- Fileserver for file to generate traffic
-- Ansible controller to manage Clients
-- ELK Stack consisting of Elasicsearch, Logstash and Kibana
+Docker-Compose is setting up five containers:
+- [Fileserver for files to generate traffic](https://github.com/mayth/go-simple-upload-server)
+- Ansible-controller to manage clients
+- [ELK-Stack consisting of Elasicsearch, Logstash and Kibana](https://github.com/deviantony/docker-elk)
 
-Via Ansible the Clients are set up to complete different szenarios. There are three playbooks with different network traffic approaches.
-The traffic is generated over curl-requests to the fileserver. The playbooks also start a command to monitor the wlan interface of the clients as well as the ethernet interface of the webserver.
-The data is directly send to the Logstash via netcat.
-The clients need to be connected to the wifi as well as the management network over ethernet
-The docker host is also connected with two interfaces to both networks.
+Via Ansible the clients are set up to complete different scenarios. There are several example playbooks (scrips) with different network traffic generating approaches.
+Network load is generated over curl-requests to the fileserver. The playbooks also start a command to monitor the wlan interface of the clients as well as the ethernet interface of the webserver.
+Those logs are directly send to the Logstash via netcat.
+The clients have to be connected to the wifi as well as the management network over ethernet. The docker host (can be navie on the machine a virtual machine) is also connected with two interfaces to both networks.
 
 ![diagramm](https://user-images.githubusercontent.com/62448107/155655469-66d681d3-ef49-4df4-8506-97caf589d30b.jpg)
 
@@ -48,7 +47,6 @@ The docker host is also connected with two interfaces to both networks.
 Here done with raspberrry pi's. Install a premodified image with hostname, wifi, ssh and timezone already set up:
 
 Connect the pi via ethernet to the management network.
-
 
 ### Setting up docker host:
 
@@ -90,7 +88,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 ```
 sudo usermod -aG docker $USER
 ```
-restart vm or
+If docker is run in a VM you have to restart it. If docker runs on the hardware the folloing command is sufficient.
 ```
 sudo service docker restart
 ```
@@ -104,7 +102,7 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-Clone Repo:
+Clone Repository:
 ```
 git clone https://github.com/s-kuhn/projektarbeit.git
 ```
@@ -120,30 +118,28 @@ Change into compose directory:
 cd projektarbeit/elk/
 ```
 
-Build compose:
+Build the containers with compose (depending on your bandwidth this can take several minutes):
 ```
 docker-compose build
 ```
 
-Start containers first time:
+Start the containers for the first time (can be started in the background if you pass the argument `-d`):
 ```
 docker-compose up
 ```
 
-Restart containers:
+Restart containers with `Ctrl + c` or with the following command if run in the background:
 ```
 docker-compose stop
-```
-or ctrl + c
 
-```
 docker-compose up
 ```
 
-Wait for ca. 10 min
+Depending on the power of the hardware you have to wait for about 10 minutes for the stack to be fully ready. If started in the forground the logs eventually stop to roll in.
+insert picture
 http://localhost:5601
 
-Reset passwords with (optional):
+(optional) Reset passwords with:
 ```
 docker-compose exec elasticsearch bin/elasticsearch-reset-password --batch --user elastic
 ```
@@ -154,17 +150,20 @@ docker-compose exec elasticsearch bin/elasticsearch-reset-password --batch --use
 ```
 Insert into [.env](./elk/.env) line 22
 
+Restart 
 ```
 docker-compose up -d logstash kibana
 ```
 
 Load sample data (i.e. Sample web logs).
+insert pic
 
 Import Dashboard from `elk/kibana`:
 
 https://support.logz.io/hc/en-us/articles/210207225-How-can-I-export-import-Dashboards-Searches-and-Visualizations-from-my-own-Kibana-
 
 Click on Dashboard and choose 1.
+insert pic
 
 Download big files:
 
