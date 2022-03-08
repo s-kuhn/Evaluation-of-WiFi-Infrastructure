@@ -44,7 +44,7 @@
     async: 240
     poll: 0
 
-  - name: "Upload file"
+  - name: "Upload website 50 times"
     when: inventory_hostname in groups['clients']
     shell: 'curl -Ffile=@upload.html "http://{{ fileserver }}:8888/upload?token=123"'
     with_sequence: count=50
