@@ -21,7 +21,7 @@
     wait_for:
       timeout: "2"
 
-  - name: "Download website times"
+  - name: "Download website"
     when: inventory_hostname in groups['clients']
     get_url:
       url: 'http://{{ fileserver }}:8888/files/Amazon.html?token=123'
@@ -39,7 +39,7 @@
     async: 120
     poll: 0
 
-  - name: "Download website 20 times"
+  - name: "Download website 10 times"
     when: inventory_hostname in groups['clients']
     get_url:
       url: 'http://{{ fileserver }}:8888/files/Amazon.html?token=123'
@@ -48,7 +48,7 @@
       owner: pi
     with_sequence: count=10
 
-  - name: "Upload file"
+  - name: "Upload website 5 times"
     when: inventory_hostname in groups['clients']
     shell: 'curl -Ffile=@Amazon.html "http://{{ fileserver }}:8888/upload?token=123"'
     with_sequence: count=5
