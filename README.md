@@ -1,4 +1,4 @@
-# Evaluation der Leistung von WLAN-Infrastruktur in Unterrichtssituationen
+# Performance Evaluation of WIFI-Infrastructure in Classroomsituations
 
 ## Table of Contents
 
