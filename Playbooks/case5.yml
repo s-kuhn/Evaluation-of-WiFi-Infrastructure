@@ -29,7 +29,7 @@
       mode: 0755
       owner: pi
 
-  - name: "Download video"
+  - name: "Download large file"
     when: inventory_hostname in groups['clients2']
     get_url:
       url: 'http://{{ fileserver }}:8888/files/Windows.iso?token=123'
@@ -39,7 +39,7 @@
     async: 120
     poll: 0
 
-  - name: "Download website 20 times"
+  - name: "Download website 10 times"
     when: inventory_hostname in groups['clients1']
     get_url:
       url: 'http://{{ fileserver }}:8888/files/Amazon.html?token=123'
@@ -48,7 +48,7 @@
       owner: pi
     with_sequence: count=10
 
-  - name: "Upload file"
+  - name: "Upload website 10 times"
     when: inventory_hostname in groups['clients1']
     shell: 'curl -Ffile=@Amazon.html "http://{{ fileserver }}:8888/upload?token=123"'
     with_sequence: count=10
