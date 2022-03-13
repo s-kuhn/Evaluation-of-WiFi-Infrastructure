@@ -96,7 +96,7 @@ services:
     - "xxx.xxx.yyy.xxx:8888:8888" # Test-subnet
     - "22:22"
     volumes:
-    - ~/projektarbeit:/home/projektarbeit
+    - ~/Evaluation-of-WIFI-Infrastructure:/home/projektarbeit
     working_dir: /home/projektarbeit
     #command: -port 8888 -token 123 -upload_limit 100000000 /home/projektarbeit
 
@@ -109,8 +109,7 @@ services:
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     volumes:
-    - ~/projektarbeit:/ansible
-    #- ~/projektarbeit/.ssh/id_rsa:/root/.ssh/id_rsa
+    - ~/Evaluation-of-WIFI-Infrastructure:/ansible
     environment:
       - "ANSIBLE_HOST_KEY_CHECKING=false"
     working_dir: /ansible
