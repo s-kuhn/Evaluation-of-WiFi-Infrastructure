@@ -44,7 +44,7 @@ Network load is generated over curl-requests to the fileserver. The playbooks al
 Those logs are directly send to the Logstash via netcat.
 The clients have to be connected to the wifi as well as the management network over ethernet. The docker host (can be navie on the machine a virtual machine) is also connected with two interfaces to both networks.
 
-![diagramm](https://user-images.githubusercontent.com/62448107/155655469-66d681d3-ef49-4df4-8506-97caf589d30b.jpg)
+![diagramm](https://user-images.githubusercontent.com/62448107/158077253-941cf752-3012-4c55-95e6-270cb31a105c.jpg)
 
 ## Installation
 
