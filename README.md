@@ -21,7 +21,7 @@
 The prior intention to this solution was to create a program or package that does pretty much what is discriped in the folloing paper:
 https://ieeexplore.ieee.org/document/7098698
 
-So something that is not a simulation and as realistic as possible to a real classroom situation. The intention is to find weaknesses in WIFI-protocols so I build something that generates web traffic between a fileserver and several clients. One problem the paper points out is that small upling chatter on the channel can cause big distractions on the accesspoint and reduce the performance of large downloads. The writers of the paper performed their test on WIFI 802.11g which clearly show this problem. I tried in my usecases to recreate that traffic but on the 802.11ac protocol. With my collected data I came to the conclution that eighter WIFI-ac does not has the same problem as WIFI-g or that I tested with not enough clients.
+So something that is not a simulation and as realistic as possible to a real classroom situation. The intention is to find weaknesses in WIFI-protocols so I build something that generates web traffic between a fileserver and several clients. One problem the paper points out is that small uplink chatter on the channel can cause big distractions on the accesspoint and reduce the performance of large downloads. The writers of the paper performed their tests on WIFI 802.11g which clearly shows this problem. I tried in my usecases to recreate that traffic but on the 802.11ac protocol. With my collected data I came to the conclution that eighter WIFI-ac does not has the same problem as WIFI-g or that I tested with not enough clients.
 
 Eigher way I hope my solution has the benefit to be modular and adjustable. With little knowledge in Logstash you clould replace the the current commad that collects the data with something else. And thanks to Kibana you can easily adjust the resulting graphs.
 
@@ -93,7 +93,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 ```
 sudo usermod -aG docker $USER
 ```
-If docker is run in a VM you have to restart it. If docker runs on the hardware the folloing command is sufficient.
+If docker is run in a VM you have to restart it. If docker runs on the hardware the following command is sufficient.
 ```
 sudo service docker restart
 ```
@@ -133,23 +133,24 @@ Start the containers for the first time (can be started in the background if you
 docker-compose up
 ```
 Depending on the power of the hardware you have to wait for about 5 minutes on the first start for the stack to be started.
+
 Restart containers with `Ctrl + c` or with the following command if run in the background:
 ```
 docker-compose restart
 ```
 
-Again depending on the power of the hardware you have to wait for about 3 minutes for the stack to be now fully ready. If started in the forground the logs eventually stop to roll in.
+Again depending on the power of the hardware you have to wait for about 5 minutes for the stack to be now fully ready. If started in the forground the logs eventually stop to roll in.
 ![Screenshot 2022-03-13 231323](https://user-images.githubusercontent.com/62448107/158081455-525cfd39-8a63-48ee-b6d9-2113da7d2992.png)
 
 Log in with user `elastic` and the password in `/elk/.env`: http://localhost:5601
 
 (optional) If you want to reset the current passwords please follow deviantony's steps: https://github.com/deviantony/docker-elk#setting-up-user-authentication
 
-After successful login you click on `Explore on my own` and load sample data (i.e. Sample web logs).
+After successful login you click on `Explore on my own` and the load sample data (i.e. Sample web logs).
 ![Screenshot 2022-03-13 231723](https://user-images.githubusercontent.com/62448107/158081569-66465473-1123-4f63-9855-bcfd87245588.png)
 ![image](https://user-images.githubusercontent.com/62448107/158081579-28022f6d-7f3b-48c6-a5d2-295eadfa7ade.png)
 
-Import Dashboard from `elk/kibana`:
+Now import the preconfigured dashboard from `elk/kibana`:
 
 https://support.logz.io/hc/en-us/articles/210207225-How-can-I-export-import-Dashboards-Searches-and-Visualizations-from-my-own-Kibana-
 
@@ -158,12 +159,12 @@ https://support.logz.io/hc/en-us/articles/210207225-How-can-I-export-import-Dash
 Click on Dashboard and select Evaluation-of-WIFI-Infrastructure.
 ![image](https://user-images.githubusercontent.com/62448107/158081757-a724481e-80a3-437e-91f4-c128e89ae304.png)
 
-Download big files:
+Download these large files for the playbooks to work or repace them with your own (see [Using other files](#using-other-files)):
 
 - https://drive.google.com/file/d/1LZGUo8R7O6uCAEFLdsMVamIbwQEImjhf/view?usp=sharing
 - https://drive.google.com/file/d/1At2KMUSX5Cu0cCx32GeFOiiiqeXKtxPp/view?usp=sharing
 
-### Command to start
+### Commands to start
 
 ```
 docker exec -it ansible /bin/bash
