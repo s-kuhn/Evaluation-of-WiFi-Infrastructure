@@ -139,25 +139,29 @@ docker-compose restart
 ```
 
 Again depending on the power of the hardware you have to wait for about 3 minutes for the stack to be now fully ready. If started in the forground the logs eventually stop to roll in.
-insert picture
-http://localhost:5601
+![Screenshot 2022-03-13 231323](https://user-images.githubusercontent.com/62448107/158081455-525cfd39-8a63-48ee-b6d9-2113da7d2992.png)
+
+Log in with user `elastic` and the password in `/elk/.env`: http://localhost:5601
 
 (optional) If you want to reset the current passwords please follow deviantony's steps: https://github.com/deviantony/docker-elk#setting-up-user-authentication
 
-Load sample data (i.e. Sample web logs).
-insert pic
+After successful login you click on `Explore on my own` and load sample data (i.e. Sample web logs).
+![Screenshot 2022-03-13 231723](https://user-images.githubusercontent.com/62448107/158081569-66465473-1123-4f63-9855-bcfd87245588.png)
+![image](https://user-images.githubusercontent.com/62448107/158081579-28022f6d-7f3b-48c6-a5d2-295eadfa7ade.png)
 
 Import Dashboard from `elk/kibana`:
 
 https://support.logz.io/hc/en-us/articles/210207225-How-can-I-export-import-Dashboards-Searches-and-Visualizations-from-my-own-Kibana-
 
-Click on Dashboard and choose 1.
-insert pic
+![image](https://user-images.githubusercontent.com/62448107/158081669-f44a3717-7951-4e70-bb3f-292a66c0cdc7.png)
+
+Click on Dashboard and select Evaluation-of-WIFI-Infrastructure.
+![image](https://user-images.githubusercontent.com/62448107/158081757-a724481e-80a3-437e-91f4-c128e89ae304.png)
 
 Download big files:
 
-- https://drive.google.com/file/d/1At2KMUSX5Cu0cCx32GeFOiiiqeXKtxPp/view?usp=sharing
 - https://drive.google.com/file/d/1LZGUo8R7O6uCAEFLdsMVamIbwQEImjhf/view?usp=sharing
+- https://drive.google.com/file/d/1At2KMUSX5Cu0cCx32GeFOiiiqeXKtxPp/view?usp=sharing
 
 ### Command to start
 
@@ -197,7 +201,6 @@ All playbooks run in free strategy that means that if a client has finished a ta
 ### Async
 Some task have a attribut `async` an `poll`:
 > If you want to run multiple tasks in a playbook concurrently, use async with poll set to 0. When you set poll: 0, Ansible starts the task and immediately moves on to the next task without waiting for a result. Each async task runs until it either completes, fails or times out (runs longer than its async value). The playbook run ends without checking back on async tasks.
-
 ### Timeout
 Others may have a attribut `wait_for` with `timeout`. the number afert timeout ist the amout of seconds the task waits befor continuing with the next.
 
