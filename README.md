@@ -205,7 +205,7 @@ Depending on how many Clients you have you need to adjust the graphs:
 
 ## Modifing Playbooks
 
-The actual traffic generating happens in the last task of each playbook. The get-random.yml makes the clients wait for a random time of seconds between 5 and 10 befor starting the actual tasks. This is done so the clients have a more realistic behavior an can easily be adjustied in the file.
+To be more realistic some cases use the outsourced playbook `get-random.yml` which makes the clients wait for a random time of seconds between 5 and 10 befor starting the actual tasks. This is done so the clients have a more realistic behavior an can easily be adjustied in the file.
 
 ### Strategy
 All playbooks run in free strategy that means that if a client has finished a task befor another clients he doesn't has to wait for all to finish but continues with the next task.
