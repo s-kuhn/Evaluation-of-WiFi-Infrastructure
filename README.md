@@ -132,33 +132,17 @@ Start the containers for the first time (can be started in the background if you
 ```
 docker-compose up
 ```
-
+Depending on the power of the hardware you have to wait for about 5 minutes on the first start for the stack to be started.
 Restart containers with `Ctrl + c` or with the following command if run in the background:
 ```
-docker-compose stop
-
-docker-compose up
+docker-compose restart
 ```
 
-Depending on the power of the hardware you have to wait for about 10 minutes for the stack to be fully ready. If started in the forground the logs eventually stop to roll in.
+Again depending on the power of the hardware you have to wait for about 3 minutes for the stack to be now fully ready. If started in the forground the logs eventually stop to roll in.
 insert picture
 http://localhost:5601
 
-(optional) Reset passwords with:
-```
-docker-compose exec elasticsearch bin/elasticsearch-reset-password --batch --user elastic
-```
-Insert into [.env](./elk/.env) line 10
-
-```
-docker-compose exec elasticsearch bin/elasticsearch-reset-password --batch --user kibana_system
-```
-Insert into [.env](./elk/.env) line 22
-
-Restart 
-```
-docker-compose up -d logstash kibana
-```
+(optional) If you want to reset the current passwords please follow deviantony's steps: https://github.com/deviantony/docker-elk#setting-up-user-authentication
 
 Load sample data (i.e. Sample web logs).
 insert pic
