@@ -18,7 +18,12 @@
    - [Using other files](#using-other-files)
 
 ## Problem
+The prior intention to this solution was to create a program or package that does pretty much what is discriped in the folloing paper:
 https://ieeexplore.ieee.org/document/7098698
+
+So something that is not a simulation and as realistic as possible to a real classroom situation. The intention is to find weaknesses in WIFI-protocols so I build something that generates web traffic between a fileserver and several clients. One problem the paper points out is that small upling chatter on the channel can cause big distractions on the accesspoint and reduce the performance of large downloads. The writers of the paper performed their test on WIFI 802.11g which clearly show this problem. I tried in my usecases to recreate that traffic but on the 802.11ac protocol. With my collected data I came to the conclution that eighter WIFI-ac does not has the same problem as WIFI-g or that I tested with not enough clients.
+
+Eigher way I hope my solution has the benefit to be modular and adjustable. With little knowledge in Logstash you clould replace the the current commad that collects the data with something else. And thanks to Kibana you can easily adjust the resulting graphs.
 
 ## Requirements
 - Ubuntu
