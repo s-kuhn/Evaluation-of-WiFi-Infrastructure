@@ -109,7 +109,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 Clone Repository:
 ```
-git clone https://github.com/s-kuhn/projektarbeit.git
+git clone https://github.com/s-kuhn/Evaluation-of-WIFI-Infrastructure.git
 ```
 
 Replace IP-adresses in following files (xxx.xxx.xxx.xxx for management-subnet, xxx.xxx.yyy.xxx for test-subnet):
@@ -120,7 +120,7 @@ Replace IP-adresses in following files (xxx.xxx.xxx.xxx for management-subnet, x
 
 Change into compose directory:
 ```
-cd projektarbeit/elk/
+cd Evaluation-of-WIFI-Infrastructure/elk/
 ```
 
 Build the containers with compose (depending on your bandwidth this can take several minutes):
