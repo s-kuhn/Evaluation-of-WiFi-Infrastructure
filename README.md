@@ -49,7 +49,7 @@ The clients have to be connected to the WiFi as well as the management network o
 ## Installation
 
 ### Setting up clients:
-Done here with raspberry pi's. Install a premodified image with hostname, WiFi, ssh and timezone already set up:
+Done here with raspberry pi's. Install a premodified image with hostname, WiFi, SSH and timezone already set up:
 
 Connect the pi via ethernet to the management network.
 
@@ -113,10 +113,10 @@ git clone https://github.com/s-kuhn/Evaluation-of-WIFI-Infrastructure.git
 ```
 
 Replace the IP addresses in the following files (xxx.xxx.xxx.xxx for management-subnet, xxx.xxx.yyy.xxx for test-subnet):
-- [docker-compose.yml](./elk/docker-compose.yml) line 59, 95 and 96
+- [docker-compose.yml](./elk/docker-compose.yml) line *59*, *95* and *96*
 - [config.yml](./Playbooks/config.yml)
 - [hosts](./hosts)
-- [deploy_shh_keys.sh](./deploy_ssh_key.sh) in array and line 34
+- [deploy_shh_keys.sh](./deploy_ssh_key.sh) in array and line *34*
 
 Change into compose directory:
 ```
@@ -197,11 +197,11 @@ Depending on how many Clients you have, you will need to adjust the graphs:
 To be more realistic some cases use the outsourced playbook `get-random.yml` which makes the clients wait for a random amount of time between 5 and 10 seconds before starting the actual tasks. This is done so the clients have a more realistic behavior and can be adjusted in the file more easily.
 
 ### Strategy
-All playbooks run in free strategy that means that if a client has finished a task befor another clients he doesn't has to wait for all to finish but continues with the next task.
+All playbooks run in *free* strategy that means that if a client has finished a task befor another clients he doesn't has to wait for all to finish but continues with the next task.
 
 ### Async
 Some tasks have a attribute `async` an `poll`:
-> If you want to run multiple tasks in a playbook concurrently, use async with poll set to 0. When you set poll: 0, Ansible starts the task and immediately moves on to the next task without waiting for a result. Each async task runs until it either completes, fails or times out (runs longer than its async value). The playbook run ends without checking back on async tasks.
+> If you want to run multiple tasks in a playbook concurrently, use *async* with *poll* set to *0*. When you set `poll: 0`, Ansible starts the task and immediately moves on to the next task without waiting for a result. Each async task runs until it either completes, fails or times out (runs longer than its async value). The playbook run ends without checking back on async tasks.
 
 ### Timeout
 Others may have an attribute `wait_for` with `timeout`. The number after timeout is the amount of seconds a task will wait before continuing with the next one.
@@ -213,4 +213,4 @@ In case2 I use the condition `when` and ask if a client is in a specific invento
 Some tasks are run multiple times. That is done with the attribute `with_sequence`. The variable `count` contains the amount of times the task is run.
 
 ### Using other files
-The final thing you may like to adjust is with which files the network traffic is generated. For that you need to change the url in the corresponding task.
+The final thing you may like to adjust is with which files the network traffic is generated. For that you need to change the URL in the corresponding task.
