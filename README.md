@@ -8,8 +8,8 @@
 4. [Installation](#installation)
    - [Setting up clients](#setting-up-clients)
    - [Setting up docker host](#setting-up-docker-host)
-   - [Command to start](#command-to-start)
-5. [Modifing Playbooks](#modifing-playbooks)
+   - [Commands to start](#commands-to-start)
+5. [Modifying Playbooks](#modifying-playbooks)
    - [Strategy](#strategy)
    - [Async](#async)
    - [Timeout](#timeout)
@@ -18,38 +18,38 @@
    - [Using other files](#using-other-files)
 
 ## Problem
-The prior intention to this solution was to create a program or package that does pretty much what is discriped in the folloing paper:
+The main goal of this project was to create a program or package that follows the discription in the following paper:
 https://ieeexplore.ieee.org/document/7098698
 
-So something that is not a simulation and as realistic as possible to a real classroom situation. The intention is to find weaknesses in WIFI-protocols so I build something that generates web traffic between a fileserver and several clients. One problem the paper points out is that small uplink chatter on the channel can cause big distractions on the accesspoint and reduce the performance of large downloads. The writers of the paper performed their tests on WIFI 802.11g which clearly shows this problem. I tried in my usecases to recreate that traffic but on the 802.11ac protocol. With my collected data I came to the conclution that eighter WIFI-ac does not has the same problem as WIFI-g or that I tested with not enough clients.
+The implementation should not be a simulation but as realistic as possible to a real classroom situation. The intention was to find weaknesses in WiFi-protocols, so I built something that generates web traffic between a file server and several clients. One problem the paper points out is that small uplink chatter on the channel can cause big distractions on the access point and reduce the performance of large downloads. The writers of the paper performed their tests on WiFi 802.11g which is clearly prone to this problem. In my use cases I tried to recreate similar traffic using the 802.11ac protocol instead. Based on the collected data I concluded that either WiFi-ac does not have the same problem as WiFi-g or that the nubmer of clients in my tests were insufficient.
 
-Eigher way I hope my solution has the benefit to be modular and adjustable. With little knowledge in Logstash you clould replace the the current commad that collects the data with something else. And thanks to Kibana you can easily adjust the resulting graphs.
+Either way, my solution has the benefit of being modular and adjustable. With a little knowledge in Logstash one clould replace the current commad for data collection with a better alternative. And thanks to Kibana you can easily adjust the resulting graphs.
 
 ## Requirements
 - Ubuntu
 - [Docker](https://docs.docker.com/engine/install/ubuntu/ "Install Docker")
 - [Compose](https://docs.docker.com/compose/install/#install-compose-on-linux-systems "Install Docker-Compose")
-- Accesspoint
+- Access Point
 - Number of clients for a classroom-scenario
 - Router with two subnets (one for management, one for the scenario)
 
 ## Approach
 Docker-Compose is setting up five containers:
-- [Fileserver for files to generate traffic](https://github.com/mayth/go-simple-upload-server)
+- [File Server for files to generate traffic](https://github.com/mayth/go-simple-upload-server)
 - Ansible-controller to manage clients
 - [ELK-Stack consisting of Elasicsearch, Logstash and Kibana](https://github.com/deviantony/docker-elk)
 
-Via Ansible the clients are set up to complete different scenarios. There are several example playbooks (scrips) with different network traffic generating approaches.
-Network load is generated over curl-requests to the fileserver. The playbooks also start a command to monitor the wlan interface of the clients as well as the ethernet interface of the webserver.
-Those logs are directly send to the Logstash via netcat.
-The clients have to be connected to the wifi as well as the management network over ethernet. The docker host (can be navie on the machine a virtual machine) is also connected with two interfaces to both networks.
+Via Ansible the clients are set up to complete different scenarios. There are several example playbooks (scripts) with different network traffic generating approaches.
+Network load is generated over curl-requests to the file server. The playbooks also start a command to monitor the WiFi interface of the clients as well as the ethernet interface of the file server.
+Those logs are directly sent to the Logstash via netcat.
+The clients have to be connected to the WiFi as well as the management network over ethernet. The docker host (can be natvie on the machine a virtual machine) is also connected with two interfaces to both networks.
 
 ![diagramm](https://user-images.githubusercontent.com/62448107/158077253-941cf752-3012-4c55-95e6-270cb31a105c.jpg)
 
 ## Installation
 
 ### Setting up clients:
-Here done with raspberrry pi's. Install a premodified image with hostname, wifi, ssh and timezone already set up:
+Done here with raspberry pi's. Install a premodified image with hostname, WiFi, ssh and timezone already set up:
 
 Connect the pi via ethernet to the management network.
 
@@ -93,7 +93,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 ```
 sudo usermod -aG docker $USER
 ```
-If docker is run in a VM you have to restart it. If docker runs on the hardware the following command is sufficient.
+If docker is run in a VM, you will have to restart it. If docker runs on the hardware, the following command will be sufficient.
 ```
 sudo service docker restart
 ```
@@ -112,7 +112,7 @@ Clone Repository:
 git clone https://github.com/s-kuhn/Evaluation-of-WIFI-Infrastructure.git
 ```
 
-Replace IP-adresses in following files (xxx.xxx.xxx.xxx for management-subnet, xxx.xxx.yyy.xxx for test-subnet):
+Replace the IP addresses in the following files (xxx.xxx.xxx.xxx for management-subnet, xxx.xxx.yyy.xxx for test-subnet):
 - [docker-compose.yml](./elk/docker-compose.yml) line 59, 95 and 96
 - [config.yml](./Playbooks/config.yml)
 - [hosts](./hosts)
@@ -132,14 +132,14 @@ Start the containers for the first time (can be started in the background if you
 ```
 docker-compose up
 ```
-Depending on the power of the hardware you have to wait for about 5 minutes on the first start for the stack to be started.
+Depending on the power of the hardware you will have to wait for about 5 minutes on the first start for the stack to be started.
 
 Restart containers with `Ctrl + c` or with the following command if run in the background:
 ```
 docker-compose restart
 ```
 
-Again depending on the power of the hardware you have to wait for about 5 minutes for the stack to be now fully ready. If started in the forground the logs eventually stop to roll in.
+Again depending on the power of the hardware you will have to wait for about 5 minutes for the stack to be now fully ready. If started in the foreground the logs will eventually stop to roll in.
 ![Screenshot 2022-03-13 231323](https://user-images.githubusercontent.com/62448107/158081455-525cfd39-8a63-48ee-b6d9-2113da7d2992.png)
 
 Log in with user `elastic` and the password in `/elk/.env`: http://localhost:5601
@@ -184,32 +184,33 @@ command time ansible-playbook Playbooks/case2.yml -i hosts
 command time ansible-playbook Playbooks/case3.yml -i hosts
 ```
 
-Depending on how many Clients you have you need to adjust the graphs:
+Depending on how many Clients you have, you will need to adjust the graphs:
 - Change into edit mode
 - Click on the gear button and choose edit lens
-- Click into the data by what the lens is broke down and adjust the number of values to the number of clients
+- Click into the data by which the lens is broke down and adjust the number of values to the number of clients
 
 ![image](https://user-images.githubusercontent.com/62448107/157236256-c349eb2c-54fe-4280-a743-dbf365fa4c6b.png)
 ![image](https://user-images.githubusercontent.com/62448107/157236099-3e843b96-861e-433f-b8c6-16a6a2d7dfd2.png)
 
-## Modifing Playbooks
+## Modifying Playbooks
 
-To be more realistic some cases use the outsourced playbook `get-random.yml` which makes the clients wait for a random time of seconds between 5 and 10 befor starting the actual tasks. This is done so the clients have a more realistic behavior an can easily be adjustied in the file.
+To be more realistic some cases use the outsourced playbook `get-random.yml` which makes the clients wait for a random amount of time between 5 and 10 seconds before starting the actual tasks. This is done so the clients have a more realistic behavior and can be adjusted in the file more easily.
 
 ### Strategy
 All playbooks run in free strategy that means that if a client has finished a task befor another clients he doesn't has to wait for all to finish but continues with the next task.
 
 ### Async
-Some task have a attribut `async` an `poll`:
+Some tasks have a attribute `async` an `poll`:
 > If you want to run multiple tasks in a playbook concurrently, use async with poll set to 0. When you set poll: 0, Ansible starts the task and immediately moves on to the next task without waiting for a result. Each async task runs until it either completes, fails or times out (runs longer than its async value). The playbook run ends without checking back on async tasks.
+
 ### Timeout
-Others may have a attribut `wait_for` with `timeout`. the number afert timeout ist the amout of seconds the task waits befor continuing with the next.
+Others may have an attribute `wait_for` with `timeout`. The number after timeout is the amount of seconds a task will wait before continuing with the next one.
 
 ### Conditions
-In case2 I use the contition `when` and ask if a client is in a specific inventory group. If that contiotion is true the task will run else it is skippped. The groups are initialiced in the `hosts` file in the "[]" brackets.
+In case2 I use the condition `when` and ask if a client is in a specific inventory group. If that condition is true, the task will run otherwise it is skipped. The groups are initialized in the `hosts` file in the "[ ]" brackets.
 
 ### Loop
-Some tasks are run multiple time. That is done with the attribut `with_sequence`. The variable `count` contains the amount of times the rask is run.
+Some tasks are run multiple times. That is done with the attribute `with_sequence`. The variable `count` contains the amount of times the task is run.
 
 ### Using other files
-Last thing you may like to adjust is the files to generate the network traffic. For that you need to change the url in the corresponding task.
+The final thing you may like to adjust is with which files the network traffic is generated. For that you need to change the url in the corresponding task.
