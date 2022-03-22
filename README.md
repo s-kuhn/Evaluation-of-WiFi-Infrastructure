@@ -1,4 +1,4 @@
-# Performance Evaluation of WIFI-Infrastructure in Classroom-Situations
+# Performance Evaluation of WiFi-Infrastructure in Classroom-Situations
 
 ## Table of Contents
 
@@ -109,7 +109,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 Clone Repository:
 ```
-git clone https://github.com/s-kuhn/Evaluation-of-WIFI-Infrastructure.git
+git clone https://github.com/s-kuhn/Evaluation-of-WiFi-Infrastructure.git
 ```
 
 Replace the IP addresses in the following files (xxx.xxx.xxx.xxx for management-subnet, xxx.xxx.yyy.xxx for test-subnet):
@@ -120,7 +120,7 @@ Replace the IP addresses in the following files (xxx.xxx.xxx.xxx for management-
 
 Change into compose directory:
 ```
-cd Evaluation-of-WIFI-Infrastructure/elk/
+cd Evaluation-of-WiFi-Infrastructure/elk/
 ```
 
 Build the containers with compose (depending on your bandwidth this can take several minutes):
@@ -156,7 +156,7 @@ https://support.logz.io/hc/en-us/articles/210207225-How-can-I-export-import-Dash
 
 ![image](https://user-images.githubusercontent.com/62448107/158081669-f44a3717-7951-4e70-bb3f-292a66c0cdc7.png)
 
-Click on Dashboard and select Evaluation-of-WIFI-Infrastructure.
+Click on Dashboard and select Evaluation-of-WiFi-Infrastructure.
 ![image](https://user-images.githubusercontent.com/62448107/158081757-a724481e-80a3-437e-91f4-c128e89ae304.png)
 
 Download these large files for the playbooks to work or repace them with your own (see [Using other files](#using-other-files)):
