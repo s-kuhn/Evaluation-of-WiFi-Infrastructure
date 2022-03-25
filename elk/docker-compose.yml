@@ -97,7 +97,7 @@ services:
     - "22:22"
     volumes:
     - ~/Evaluation-of-WiFi-Infrastructure:/home/Evaluation-of-WiFi-Infrastructure
-    working_dir: /home/projektarbeit
+    working_dir: /home/Evaluation-of-WiFi-Infrastructure
 
   ansible-controller:
     container_name: ansible
