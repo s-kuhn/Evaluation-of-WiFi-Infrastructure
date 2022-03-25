@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-1. [Problem](#problem)
+1. [Motivation](#motivation)
 2. [Requirements](#requirements)
 3. [Approach](#approach)
 4. [Installation](#installation)
@@ -17,7 +17,7 @@
    - [Loop](#loop)
    - [Using other files](#using-other-files)
 
-## Problem
+## Motivation
 The main goal of this project was to create a program or package that follows the discription in the following paper:
 https://ieeexplore.ieee.org/document/7098698
 
