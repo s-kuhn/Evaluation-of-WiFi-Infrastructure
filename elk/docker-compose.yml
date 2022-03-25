@@ -96,8 +96,8 @@ services:
     - "xxx.xxx.yyy.xxx:8888:8888" # Test-subnet
     - "22:22"
     volumes:
-    - ~/Evaluation-of-WiFi-Infrastructure:/home/Evaluation-of-WiFi-Infrastructure
-    working_dir: /home/Evaluation-of-WiFi-Infrastructure
+    - ~/Evaluation-of-WiFi-Infrastructure:/home/fileserver
+    working_dir: /home/fileserver
 
   ansible-controller:
     container_name: ansible
