@@ -9,7 +9,8 @@
    - [Setting up clients](#setting-up-clients)
    - [Setting up docker host](#setting-up-docker-host)
    - [Commands to start](#commands-to-start)
-5. [Modifying Playbooks](#modifying-playbooks)
+5. [Dependency Management](#dependency-management)
+6. [Modifying Playbooks](#modifying-playbooks)
    - [Strategy](#strategy)
    - [Async](#async)
    - [Timeout](#timeout)
@@ -191,6 +192,38 @@ Depending on how many Clients you have, you will need to adjust the graphs:
 
 ![image](https://user-images.githubusercontent.com/62448107/157236256-c349eb2c-54fe-4280-a743-dbf365fa4c6b.png)
 ![image](https://user-images.githubusercontent.com/62448107/157236099-3e843b96-861e-433f-b8c6-16a6a2d7dfd2.png)
+
+## Dependency Management
+
+This project uses [Dependabot](https://docs.github.com/en/code-security/dependabot) for automated dependency management. The configuration file is located at `.github/dependabot.yml` and monitors the following dependency types:
+
+### Docker Dependencies
+- **Location**: `/elk` directory (includes `docker-compose.yml` and all Dockerfiles)
+- **Components monitored**: 
+  - ELK Stack (Elasticsearch, Logstash, Kibana)
+  - Go file server
+  - Ansible controller
+  - Extension services (APM, Curator, Enterprise Search, Filebeat, etc.)
+- **Update schedule**: Weekly on Monday mornings
+
+### Go Modules
+- **Location**: `/elk/fileserver` directory
+- **Files monitored**: `go.mod` and `go.sum`
+- **Components**: Go-based file server dependencies
+- **Update schedule**: Weekly on Monday mornings
+
+### GitHub Actions
+- **Location**: Repository root (`/`)
+- **Purpose**: Future-proofing for any workflow files that may be added
+- **Update schedule**: Weekly on Monday mornings
+
+### Configuration Features
+- Maximum 5 open pull requests per ecosystem to prevent overwhelming
+- Automatic reviewer assignment to the repository owner
+- Semantic commit messages with appropriate prefixes (`docker:`, `go:`, `actions:`)
+- Scheduled updates to minimize disruption to active development
+
+Dependabot will automatically create pull requests when dependency updates are available. Review and merge these PRs to keep the project secure and up-to-date.
 
 ## Modifying Playbooks
 
