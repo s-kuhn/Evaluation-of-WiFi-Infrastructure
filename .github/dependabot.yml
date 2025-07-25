@@ -1,8 +1,162 @@
 version: 2
 updates:
-  # Docker Compose dependencies
+  # Docker dependencies - Logstash
   - package-ecosystem: "docker"
-    directory: "/elk"
+    directory: "/elk/logstash"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "s-kuhn"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+
+  # Docker dependencies - Elasticsearch
+  - package-ecosystem: "docker"
+    directory: "/elk/elasticsearch"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "s-kuhn"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+
+  # Docker dependencies - Kibana
+  - package-ecosystem: "docker"
+    directory: "/elk/kibana"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "s-kuhn"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+
+  # Docker dependencies - Ansible
+  - package-ecosystem: "docker"
+    directory: "/elk/ansible"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "s-kuhn"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+
+  # Docker dependencies - Setup
+  - package-ecosystem: "docker"
+    directory: "/elk/setup"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "s-kuhn"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+
+  # Docker dependencies - Fileserver
+  - package-ecosystem: "docker"
+    directory: "/elk/fileserver"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "s-kuhn"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+
+  # Docker dependencies - APM Server Extension
+  - package-ecosystem: "docker"
+    directory: "/elk/extensions/apm-server"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "s-kuhn"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+
+  # Docker dependencies - Enterprise Search Extension
+  - package-ecosystem: "docker"
+    directory: "/elk/extensions/enterprise-search"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "s-kuhn"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+
+  # Docker dependencies - Filebeat Extension
+  - package-ecosystem: "docker"
+    directory: "/elk/extensions/filebeat"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "s-kuhn"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+
+  # Docker dependencies - Logspout Extension
+  - package-ecosystem: "docker"
+    directory: "/elk/extensions/logspout"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "s-kuhn"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+
+  # Docker dependencies - Curator Extension
+  - package-ecosystem: "docker"
+    directory: "/elk/extensions/curator"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "s-kuhn"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+
+  # Docker dependencies - Metricbeat Extension
+  - package-ecosystem: "docker"
+    directory: "/elk/extensions/metricbeat"
     schedule:
       interval: "weekly"
       day: "monday"
@@ -26,18 +180,4 @@ updates:
       - "s-kuhn"
     commit-message:
       prefix: "go"
-      include: "scope"
-
-  # GitHub Actions dependencies (future-proofing)
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-    open-pull-requests-limit: 5
-    reviewers:
-      - "s-kuhn"
-    commit-message:
-      prefix: "actions"
       include: "scope"
