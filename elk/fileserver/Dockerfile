@@ -1,4 +1,4 @@
-FROM golang:1.14 AS build-env
+FROM golang:1.24 AS build-env
 
 RUN mkdir -p /go/src/app
 WORKDIR /go/src/app
