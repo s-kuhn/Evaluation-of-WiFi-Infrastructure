@@ -1,4 +1,4 @@
-FROM willhallonline/ansible:2.11-ubuntu-20.04
+FROM willhallonline/ansible:2.18-ubuntu-24.04
 
 RUN set -eux; \
 	apt-get update; \
